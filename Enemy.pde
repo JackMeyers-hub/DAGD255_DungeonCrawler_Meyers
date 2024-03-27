@@ -10,7 +10,7 @@ class Enemy extends AABB {
     super.update();
   }
   void draw() {
-    fill(#D234FF);
+    fill(255, 0, 0);
     rect(x-halfW, y-halfH, w, h);
   }
 }

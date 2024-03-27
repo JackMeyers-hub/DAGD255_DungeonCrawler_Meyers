@@ -5,18 +5,24 @@ Player player;
 Camera camera;
 
 ArrayList<Enemy> enemies = new ArrayList();
+ArrayList<Wall> walls = new ArrayList();
+ArrayList<Rocket> rockets = new ArrayList();
+ArrayList<Shockwave> shockwaves = new ArrayList();
 
 void setup() {
   size(1280, 720);
-  noStroke();
+
   player = new Player(width/2, height/2);
   camera = new Camera(player);
 
   for (int i = 0; i < 10; i++) {
-    Enemy e = new Enemy(random(width), random(height));
-    enemies.add(e);
+    Wall w = new Wall(random(width), random(height));
+    walls.add(w);
   }
+
 }
+
+
 
 void draw() {
   // BACKGROUND AND DELTA TIME
@@ -32,15 +38,22 @@ void draw() {
 
 
   //SPAWN
+  
 
 
   //UPDATE
   camera.update();
 
-  for (int i = 0; i < enemies.size(); i++) {
-    Enemy e = enemies.get(i);
-    e.update();
+  for (int i = 0; i < walls.size(); i++) {
+    Wall w = walls.get(i);
+    w.update();
+
+    if (w.checkCollision(player)) {
+      player.applyFix(player.findOverlapFix(w));
+    }
   }
+
+
 
   player.update();
 
@@ -48,9 +61,9 @@ void draw() {
   Keyboard.update();
 
   //DRAW OBJECTS
-  for (int i = 0; i < enemies.size(); i++) {
-    Enemy e = enemies.get(i);
-    e.draw();
+  for (int i = 0; i < walls.size(); i++) {
+    Wall w = walls.get(i);
+    w.draw();
   }
 
   player.draw();

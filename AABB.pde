@@ -38,9 +38,9 @@ class AABB {
   }
 
   void calcAngleToMouse() {
-    //float dx = camera.x + mouseX/zoomAmount - x;
-    //float dy = camera.y + mouseY/zoomAmount - y;
-    //angle = atan2(dy, dx);
+    float dx = camera.x + mouseX - x;
+    float dy = camera.y + mouseY - y;
+    angle = atan2(dy, dx);
   }
 
   boolean checkCollision(AABB other) {
@@ -110,6 +110,8 @@ class AABB {
 
     return result;
   }
+
+
 
   void applyFix(PVector fix) {
     x += fix.x;

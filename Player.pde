@@ -1,6 +1,10 @@
 class Player extends AABB {
 
   int level = 1;
+  boolean isBursting;
+  float burstCD = 2;
+  float numBursts = 4;
+
 
   Player(float xPos, float yPos) {
 
@@ -10,6 +14,8 @@ class Player extends AABB {
   }
 
   void update() {
+
+    calcAngleToMouse();
 
     if (Keyboard.isDown(Keyboard.LEFT)) {
       velocity.x = - 250;
@@ -37,6 +43,52 @@ class Player extends AABB {
 
   void draw() {
     fill(#FF347E);
-    rect(x-halfW, y-halfH, w, h);
+    pushMatrix();
+    noStroke();
+    translate(x, y);
+    rotate(angle);
+    rect(-halfW, -halfH, w, h);
+    popMatrix();
+  }
+
+  void spawnRocketBurst() {
+    if (isBursting) {
+      burstCD -= dt;
+      if (burstCD <= 0) {
+        numBursts--;
+        if (numBursts > 0) {
+          //spawn
+          for (int i = 00; i < 4; i++) {
+            Rocket r = new Rocket(x, y, angle);
+            rockets.add(r);
+          }
+          burstCD = 0.35;
+        } else {
+          numBursts = 3;
+          isBursting = false;
+        }
+      }
+    }
+  }
+
+  @Override void applyFix(PVector fix) {
+    x += fix.x;
+    y += fix.y;
+    if (fix.x != 0) {
+      // If we move the player left or right, the player must have hit a wall, so we set horizontal velocity to zero.
+      velocity.x = 0;
+    }
+    if (fix.y != 0) {
+      // If we move the player up or down, the player must have hit a floor or ceiling, so we set vertical velocity to zero.
+      velocity.y = 0;
+      if (fix.y < 0) {
+        // If we move the player up, we must have hit a floor.
+      }
+      if (fix.y > 0) {
+        // If we move the player down, we must have hit our head on a ceiling.
+      }
+    }
+    // recalculate AABB (since we moved the object AND we might have other collisions to fix yet this frame):
+    calcAABB();
   }
 }
