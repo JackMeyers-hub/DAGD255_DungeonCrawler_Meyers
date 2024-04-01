@@ -2,7 +2,7 @@ class Rocket extends AABB {
   float accelAngle;
   float accX, accY;
   float timeToHome = 0.75;
-  float lifeTime;
+  float lifeTime = 5;
 
 
   boolean isHoming = false;
@@ -13,9 +13,9 @@ class Rocket extends AABB {
     x = xPos;
     y = yPos;
     velocity.x = random(1) < 0.5 ? 250 * cos(angle - PI/2) : 250 * cos(angle + PI/2);
-    velocity.y = random(1) < 0.5 ? 250 * cos(angle - PI/2) : 250 * cos(angle + PI/2);
-    accX = 1500;
-    accY = 1500;
+    velocity.y = random(1) < 0.5 ? 250 * sin(angle - PI/2) : 250 * sin(angle + PI/2);
+    accX = 2000;
+    accY = 2000;
   }
 
   void update() {
@@ -28,6 +28,9 @@ class Rocket extends AABB {
 
       x += velocity.x * dt;
       y += velocity.y * dt;
+
+      velocity.x *= .99;
+      velocity.y *= .99;
     } else {
       timeToHome -= dt;
       x += velocity.x * dt;

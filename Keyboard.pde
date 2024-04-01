@@ -11,10 +11,13 @@ static public class Keyboard {
   public static final int P = 80;
   public static final int SPACE = 32;
   public static final int Q = 81;
+  public static final int E = 69;
 
   // This function updates the pKeys array.
   // Sets the boolean values in the pKeys Array to be equal to the values in the keys Array.
   public static void update() {
+
+
     for (int i = 0; i < keys.length; i++) {
       pKeys[i] = keys[i];
     }

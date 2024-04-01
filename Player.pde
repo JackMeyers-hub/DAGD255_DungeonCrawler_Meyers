@@ -2,8 +2,8 @@ class Player extends AABB {
 
   int level = 1;
   boolean isBursting;
-  float burstCD = 2;
-  float numBursts = 4;
+  float burstCD = 0;
+  float numBursts = 3;
 
 
   Player(float xPos, float yPos) {
@@ -16,6 +16,7 @@ class Player extends AABB {
   void update() {
 
     calcAngleToMouse();
+    burstCD -= dt;
 
     if (Keyboard.isDown(Keyboard.LEFT)) {
       velocity.x = - 250;
@@ -29,6 +30,13 @@ class Player extends AABB {
     if (Keyboard.isDown(Keyboard.DOWN)) {
       velocity.y =  250;
     }
+
+    if (Keyboard.isDown(Keyboard.E)) {
+      isBursting = true;
+      spawnRocketBurst();
+      println("fired");
+    }
+
 
     //velocity
     x += velocity.x * dt;
@@ -53,19 +61,23 @@ class Player extends AABB {
 
   void spawnRocketBurst() {
     if (isBursting) {
-      burstCD -= dt;
+
       if (burstCD <= 0) {
         numBursts--;
         if (numBursts > 0) {
           //spawn
-          for (int i = 00; i < 4; i++) {
+
+          println("is Spawing");
+          for (int i = 00; i < 3; i++) {
             Rocket r = new Rocket(x, y, angle);
             rockets.add(r);
+            println("Rocket Spawned");
           }
           burstCD = 0.35;
         } else {
           numBursts = 3;
           isBursting = false;
+          println("Rocket Reset");
         }
       }
     }
