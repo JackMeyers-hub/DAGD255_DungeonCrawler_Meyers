@@ -2,6 +2,7 @@ class AABB {
   float x, y, w, h; // Location and Size of each AABB object.
   float halfW, halfH;
   float angle;
+  float playerAngle;
 
   float edgeL;
   float edgeR;
@@ -41,6 +42,12 @@ class AABB {
     float dx = camera.x + mouseX - x;
     float dy = camera.y + mouseY - y;
     angle = atan2(dy, dx);
+  }
+
+  void calcAngleToPlayer() {
+    float dx = camera.x + player.x - x;
+    float dy = camera.y + player.y - y;
+    playerAngle = atan2(dy, dx);
   }
 
   boolean checkCollision(AABB other) {
