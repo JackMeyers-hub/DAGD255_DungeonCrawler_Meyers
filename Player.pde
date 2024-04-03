@@ -37,6 +37,13 @@ class Player extends AABB {
       println("fired");
     }
 
+    if (Mouse.onDown(Mouse.LEFT)) {
+    }
+
+    if (Keyboard.isDown(Keyboard.Q)) {
+      Bullet b = new Bullet(x, y, angle);
+      bullets.add(b);
+    }
 
     //velocity
     x += velocity.x * dt;
