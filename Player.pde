@@ -5,6 +5,7 @@ class Player extends AABB {
   float burstCD = 0;
   float numBursts = 3;
 
+  PVector midPoint = new PVector();
 
   Player(float xPos, float yPos) {
 
@@ -31,13 +32,19 @@ class Player extends AABB {
       velocity.y =  250;
     }
 
-    if (Keyboard.isDown(Keyboard.E)) {
+    if (rightPressed && !pRightPressed) {
       isBursting = true;
       spawnRocketBurst();
       println("fired");
     }
 
-    if (Mouse.onDown(Mouse.LEFT)) {
+    if (leftPressed && !pLeftPressed) {
+      Bullet b = new Bullet(x, y, angle);
+      bullets.add(b);
+    }
+
+    if (Mouse.isDown(Mouse.RIGHT)) {
+      println("RIGHT MOUSE");
     }
 
     if (Keyboard.isDown(Keyboard.Q)) {

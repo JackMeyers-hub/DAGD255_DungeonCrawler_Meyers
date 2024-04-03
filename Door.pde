@@ -1,4 +1,5 @@
 class Door extends AABB {
+
   Door(float x, float y, float gapSize) {
     this.x = x;
     this.y = y;
@@ -7,6 +8,12 @@ class Door extends AABB {
 
   void update() {
 
+
     super.update();
+  }
+
+  void draw() {
+    fill(255);
+    rect(x-halfW, y-halfH, w, h);
   }
 }

@@ -1,4 +1,5 @@
 class Bullet extends AABB {
+
   float lifeTime = 4;
 
   Bullet(float x, float y, float angle) {
@@ -14,6 +15,8 @@ class Bullet extends AABB {
 
     x += velocity.x * cos(angle) * dt;
     y += velocity.y * sin(angle) * dt;
+
+    if (lifeTime <= 0) isDead = true;
 
     super.update();
   }
