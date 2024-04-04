@@ -43,6 +43,11 @@ class Rocket extends AABB {
         isHoming= true;
       }
     }
+
+    if (x <= camera.x) {
+      isDead = true;
+      println("died");
+    }
   }
 
   void storeAngleToMouse() {

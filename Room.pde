@@ -33,14 +33,6 @@ class Room {
     d2 = new Door(w1.x + w/2 + w1.w/2, y + h/2 - gapSize/4, wallThickness);
     doors.add(d2);
 
-    //// BOTTOM WALLS
-    //Wall w1 = new Wall(x + platformWidth/2, y + wallThickness/2, platformWidth, wallThickness);
-    //walls.add(w1);
-    //Wall w2 = new Wall(w1.x + gapSize/2 + w1.w, y + wallThickness/2, platformWidth, wallThickness);
-    //walls.add(w2);
-    //d1 = new Door(x + w/2 - gapSize/4, y + wallThickness/2, wallThickness);
-    //doors.add(d1);
-
     // LEFT WALLS
     Wall w7 = new Wall(w1.x - platformWidth/2, y + platformHeight/2, wallThickness, platformHeight);
     walls.add(w7);
@@ -48,6 +40,14 @@ class Room {
     walls.add(w8);
     d4 = new Door(w1.x - platformWidth/2, y + h/2 - gapSize/4, wallThickness);
     doors.add(d4);
+
+    // BOTTOM WALLS
+    Wall w5 = new Wall(x + platformWidth/2, y + platformHeight*2 + gapSize/2, platformWidth, wallThickness);
+    walls.add(w5);
+    Wall w6 = new Wall(w5.x + gapSize/2 + w1.w, y + platformHeight*2 + gapSize/2, platformWidth, wallThickness);
+    walls.add(w6);
+    d3 = new Door(x + w/2 - gapSize/4, y + platformHeight*2 + gapSize/2, wallThickness);
+    doors.add(d3);
   }
 
   void update() {
@@ -66,18 +66,27 @@ class Room {
     if (player.checkCollision(d2)) {
       if (!rightWall) {
         rightWall = true;
-        Room r = new Room(x + w - platformWidth/2, y);
+        Room r = new Room(x + w/2 + platformWidth, y);
         rooms.add(r);
         r.leftWall = true;
       }
     }
-
+    // COLLISION WITH LEFT DOOR
     if (player.checkCollision(d4)) {
       if (!leftWall) {
         leftWall = true;
         Room r = new Room(x - platformWidth - w/2, y);
         rooms.add(r);
         r.rightWall = true;
+      }
+    }
+    // COLLISION WITH BOTTOM DOOR
+    if (player.checkCollision(d3)) {
+      if (!topWall) {
+        topWall = true;
+        Room r = new Room(x, y + platformHeight*2 + gapSize/2);
+        rooms.add(r);
+        r.bottomWall = true;
       }
     }
   }
