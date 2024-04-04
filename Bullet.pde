@@ -1,6 +1,6 @@
 class Bullet extends AABB {
 
-  float lifeTime = 4;
+  float lifeTime = 1;
 
   Bullet(float x, float y, float angle) {
     this.x = x;

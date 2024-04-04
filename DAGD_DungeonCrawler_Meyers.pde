@@ -87,7 +87,7 @@ void draw() {
     Bullet b = bullets.get(i);
     b.update();
 
-    if (b.lifeTime <= 0) b.isDead = true;
+    if (b.lifeTime <= 0) bullets.remove(b);
   }
 
   for (int i = 0; i < rockets.size(); i++) {
