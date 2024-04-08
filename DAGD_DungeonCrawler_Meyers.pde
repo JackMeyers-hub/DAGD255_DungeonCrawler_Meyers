@@ -6,7 +6,7 @@ float zoomAmount = 1;
 
 Player player;
 Camera camera;
-
+HUD hud;
 ArrayList<Enemy> enemies = new ArrayList();
 ArrayList<Wall> walls = new ArrayList();
 ArrayList<Room> rooms = new ArrayList();
@@ -30,6 +30,7 @@ void setup() {
   //  Enemy e= new Enemy(random(width), random(height));
   //  enemies.add(e);
   //}
+  hud = new HUD();
 }
 
 
@@ -142,6 +143,8 @@ void draw() {
   //popMatrix here
   popMatrix();
   //DRAW HUD
+  hud.update();
+  hud.draw();
 }
 
 void calcDeltaTime() {
@@ -166,3 +169,15 @@ void keyPressed() {
 void keyReleased() {
   Keyboard.handleKeyUp(keyCode);
 }
+
+//void mousePressed() {
+//  if (mouseButton == LEFT) {
+//    Mouse.handleKeyDown(Mouse.LEFT);
+//  }
+//}
+
+//void mouseReleased() {
+//  if (mouseButton == LEFT) {
+//    Mouse.handleKeyUp(Mouse.LEFT);
+//  }
+//}
