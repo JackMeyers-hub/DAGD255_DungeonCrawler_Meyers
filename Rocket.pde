@@ -46,7 +46,7 @@ class Rocket extends AABB {
 
     if (x <= camera.x) {
       isDead = true;
-      println("died");
+      //println("died");
     }
   }
 

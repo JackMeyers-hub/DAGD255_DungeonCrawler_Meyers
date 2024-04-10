@@ -12,6 +12,8 @@ static public class Keyboard {
   public static final int SPACE = 32;
   public static final int Q = 81;
   public static final int E = 69;
+  public static final int ONE = 49;
+  public static final int TWO = 50;
 
   // This function updates the pKeys array.
   // Sets the boolean values in the pKeys Array to be equal to the values in the keys Array.

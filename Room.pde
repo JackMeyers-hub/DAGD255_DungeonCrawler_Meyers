@@ -1,7 +1,7 @@
 class Room {
 
   float x, y; // These variables are room dimensions
-  final float w = 1000, h = 600; // These variables are room dimensions
+  final float w = 1300, h = 800; // These variables are room dimensions
   float gapSize = 200;
   float wallThickness = 15;
 
@@ -10,6 +10,7 @@ class Room {
 
   float platformWidth = w - w/2 - gapSize/2;
   float platformHeight = h - h/2 - gapSize/2;
+
 
 
   Room(float xPos, float yPos) {
@@ -48,6 +49,17 @@ class Room {
     walls.add(w6);
     d3 = new Door(x + w/2 - gapSize/4, y + platformHeight*2 + gapSize/2, wallThickness);
     doors.add(d3);
+
+    // SPAWN SHOTGUN IF NOT PREVIOUSLY SPAWNED
+    if (shotGunSpawned == false) {
+      float randNum = random(1);
+      println(randNum);
+      if (randNum <= .25) {
+
+        shotgun = new ShotGun(random(w), random(h));
+        shotGunSpawned = true;
+      }
+    }
   }
 
   void update() {
@@ -56,7 +68,7 @@ class Room {
     if (player.checkCollision(d1)) {
       if (!topWall) {
         topWall = true;
-        Room r = new Room(x, y - h + platformHeight/2);
+        Room r = new Room(x, y - h + platformHeight/2 - 45 );
         rooms.add(r);
         r.bottomWall = true;
       }
@@ -82,11 +94,11 @@ class Room {
     }
     // COLLISION WITH BOTTOM DOOR
     if (player.checkCollision(d3)) {
-      if (!topWall) {
-        topWall = true;
-        Room r = new Room(x, y + platformHeight*2 + gapSize/2);
+      if (!bottomWall) {
+        bottomWall = true;
+        Room r = new Room(x, y + h - gapSize/2 - 6);
         rooms.add(r);
-        r.bottomWall = true;
+        r.topWall = true;
       }
     }
   }

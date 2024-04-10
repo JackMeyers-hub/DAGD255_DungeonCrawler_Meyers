@@ -2,8 +2,17 @@ class Player extends AABB {
 
   int level = 1;
   boolean isBursting;
+  boolean hasShotgun = false;
+
   float burstCD = 0;
   float numBursts = 3;
+
+
+  int invItem = 0;
+
+  final int PISTOL = 0;
+  final int SHOTGUN = 1;
+
 
   PVector midPoint = new PVector();
 
@@ -35,22 +44,39 @@ class Player extends AABB {
     if (rightPressed && !pRightPressed) {
       isBursting = true;
       spawnRocketBurst();
-      println("fired");
+      //println("fired");
     }
 
-    if (leftPressed && !pLeftPressed) {
-      Bullet b = new Bullet(x, y, angle);
-      bullets.add(b);
+    switch(invItem) {
+    case PISTOL:
+      if (leftPressed && !pLeftPressed) {
+        Bullet b = new Bullet(x, y, angle);
+        bullets.add(b);
+      }
+      break;
+
+    case SHOTGUN:
+
+      break;
     }
 
-    if (Mouse.isDown(Mouse.RIGHT)) {
-      println("RIGHT MOUSE");
-    }
+
+
+
 
     if (Keyboard.isDown(Keyboard.Q)) {
       Bullet b = new Bullet(x, y, angle);
       bullets.add(b);
     }
+
+    if (Keyboard.isDown(Keyboard.ONE)) {
+      invItem = PISTOL;
+    }
+    if (Keyboard.isDown(Keyboard.TWO)) {
+      invItem = SHOTGUN;
+    }
+
+
 
     //velocity
     x += velocity.x * dt;
@@ -61,6 +87,7 @@ class Player extends AABB {
     velocity.y *= .95;
 
     super.update();
+    pLeftPressed = leftPressed;
   }
 
   void draw() {

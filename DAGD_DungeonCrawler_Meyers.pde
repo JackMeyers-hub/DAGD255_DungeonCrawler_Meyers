@@ -2,9 +2,12 @@ float dt = 0;
 float prevTime = 0;
 boolean leftPressed, rightPressed, pLeftPressed, pRightPressed;
 
+boolean shotGunSpawned = false;
+
 float zoomAmount = 1;
 
 Player player;
+ShotGun shotgun;
 Camera camera;
 HUD hud;
 ArrayList<Enemy> enemies = new ArrayList();
@@ -69,6 +72,8 @@ void draw() {
     r.update();
   }
 
+  //println(rooms.size());
+
   for (int i = 0; i < doors.size(); i++) {
     Door d = doors.get(i);
     d.update();
@@ -99,6 +104,8 @@ void draw() {
       rockets.remove(r);
     }
   }
+
+  if (shotgun != null) shotgun.update();
 
   player.update();
 
@@ -138,6 +145,7 @@ void draw() {
     b.draw();
   }
 
+  if (shotgun != null) shotgun.draw();
 
   player.draw();
   //popMatrix here

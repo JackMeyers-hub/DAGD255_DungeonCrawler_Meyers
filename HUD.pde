@@ -64,7 +64,7 @@ class Button {
   void draw() {
     stroke(255);
     strokeWeight(2);
-    println(currentColor);
+    //println(currentColor);
     fill(currentColor);
     rect(x-w/2, y-h/2, w, h);
     fill(255);
