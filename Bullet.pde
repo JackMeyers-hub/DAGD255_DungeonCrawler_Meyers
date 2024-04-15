@@ -22,7 +22,9 @@ class Bullet extends AABB {
   }
 
   void draw() {
+    pushMatrix();
     fill(255, 255, 0);
     ellipse(x-halfW, y-halfH, w, h);
+    popMatrix();
   }
 }

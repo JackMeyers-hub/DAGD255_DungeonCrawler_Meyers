@@ -105,7 +105,15 @@ void draw() {
     }
   }
 
-  if (shotgun != null) shotgun.update();
+  if (shotgun != null) {
+    shotgun.update();
+
+    if (shotgun.checkCollision(player)) {
+      println("poof");
+      player.hasShotgun = true;
+      shotgun = null;
+    }
+  }
 
   player.update();
 
