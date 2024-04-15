@@ -4,8 +4,8 @@ class ShotGun extends AABB {
   // float Rad = random(0,radians(360));
 
   ShotGun(float x, float y) {
-    this.x = x + w/2;
-    this.y = y + h/2;
+    this.x = x - w/2;
+    this.y = y - h/2;
 
     setSize(50, 100);
   }
@@ -24,7 +24,7 @@ class ShotGun extends AABB {
   }
 
   void draw() {
-    rect(x -= w/2, y-= h/2, 50, 100);
+    rect(x - w/2, y - h/2, 50, 100);
   }
 
   void moveToPlayer() {
