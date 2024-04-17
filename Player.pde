@@ -3,15 +3,19 @@ class Player extends AABB {
   int level = 1;
   boolean isBursting;
   boolean hasShotgun = false;
+  boolean hasRifle = true;
 
   float burstCD = 0;
   float numBursts = 3;
+  float shotGunCD = .40;
+  float rifleCD = .13;
 
 
   int invItem = 0;
 
   final int PISTOL = 0;
   final int SHOTGUN = 1;
+  final int RIFLE = 2;
 
 
   PVector midPoint = new PVector();
@@ -49,6 +53,7 @@ class Player extends AABB {
 
     switch(invItem) {
     case PISTOL:
+
       if (leftPressed && !pLeftPressed) {
         Bullet b = new Bullet(x, y, angle);
         bullets.add(b);
@@ -56,7 +61,37 @@ class Player extends AABB {
       break;
 
     case SHOTGUN:
+      if (player.hasShotgun == true) {
 
+        shotGunCD -= dt;
+        if (shotGunCD <= 0) {
+          if (leftPressed && !pLeftPressed) {
+
+            Bullet b = new Bullet(x, y, angle);
+            bullets.add(b);
+
+            Bullet b2 = new Bullet(x, y, angle + radians(10));
+            bullets.add(b2);
+
+            Bullet b3 = new Bullet(x, y, angle - radians(10));
+            bullets.add(b3);
+            shotGunCD = .40;
+          }
+        }
+      }
+      break;
+
+    case RIFLE:
+      if (hasRifle == true) {
+        rifleCD -= dt;
+        if (rifleCD <= 0) {
+          if (leftPressed) {
+            Bullet b = new Bullet(x, y, angle);
+            bullets.add(b);
+            rifleCD = .13;
+          }
+        }
+      }
       break;
     }
 
@@ -74,6 +109,9 @@ class Player extends AABB {
     }
     if (Keyboard.isDown(Keyboard.TWO)) {
       invItem = SHOTGUN;
+    }
+    if (Keyboard.isDown(Keyboard.THREE)) {
+      invItem = RIFLE;
     }
 
 
@@ -143,5 +181,22 @@ class Player extends AABB {
     }
     // recalculate AABB (since we moved the object AND we might have other collisions to fix yet this frame):
     calcAABB();
+  }
+}
+
+class CrossHair {
+
+  CrossHair() {
+    
+  }
+
+  void update() {
+
+  }
+
+  void draw() {
+    noStroke();
+    fill(00000);
+    ellipse(mouseX, mouseY, 8, 8);
   }
 }

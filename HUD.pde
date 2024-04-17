@@ -2,13 +2,15 @@ class HUD {
 
   ArrayList<Button> buttons = new ArrayList();
 
+  float invItem = player.invItem;
+
+
   HUD() {
     Button pause = new Button(width - 175, 75, "PAUSE");
     buttons.add(pause);
   }
 
   void update() {
-
     for (int i = 0; i < buttons.size(); i++) {
       Button b = buttons.get(i);
       b.update();
@@ -34,6 +36,68 @@ class HUD {
     for (int i = 0; i < buttons.size(); i++) {
       Button b = buttons.get(i);
       b.draw();
+    }
+  }
+}
+
+class Hotbar {
+  int invItem = player.invItem;
+
+  final int PISTOL = 0;
+  final int SHOTGUN = 1;
+  final int RIFLE = 2;
+
+  Hotbar() {
+  }
+
+  void update() {
+    invItem = player.invItem;
+  }
+
+  void draw() {
+    stroke(00000);
+    strokeWeight(5);
+    fill(#676767);
+    // FINISH BY HAVING CHECKS TO SEE IF PLAYER HAS ITEMS THEN SWAP BACK TO PISTOL IF DONT!!!!
+
+    switch(invItem) {
+    case PISTOL:
+      //SHOTGUN
+      rect(150, height - 150, 100, 100);
+      //RIFLE
+      rect(250, height - 150, 100, 100);
+      //PISTOL
+      pushMatrix();
+      scale(1.2);
+      rect(25, height - 254, 100, 100);
+      popMatrix();
+      break;
+    case SHOTGUN:
+      if (player.hasShotgun) {
+        //PISTOL
+        rect(50, height - 150, 100, 100);
+        //RIFLE
+        rect(250, height - 150, 100, 100);
+        //SHOTGUN
+        pushMatrix();
+        scale(1.2);
+        rect(115, height - 254, 100, 100);
+        popMatrix();
+      }
+      break;
+    case RIFLE:
+      if (player.hasRifle) {
+        //PISTOL
+        rect(50, height - 150, 100, 100);
+        //SHOTGUN
+        rect(150, height - 150, 100, 100);
+        //RIFLE
+        pushMatrix();
+        scale(1.2);
+        rect(205, height - 254, 100, 100);
+        popMatrix();
+        break;
+      }
     }
   }
 }

@@ -8,8 +8,10 @@ float zoomAmount = 1;
 
 Player player;
 ShotGun shotgun;
+CrossHair crosshair;
 Camera camera;
 HUD hud;
+Hotbar hotbar;
 ArrayList<Enemy> enemies = new ArrayList();
 ArrayList<Wall> walls = new ArrayList();
 ArrayList<Room> rooms = new ArrayList();
@@ -22,6 +24,7 @@ ArrayList<Rocket> enemyrockets = new ArrayList();
 void setup() {
   size(1280, 720);
   noStroke();
+  noCursor();
 
   player = new Player(width/2, height/2);
   camera = new Camera(player);
@@ -34,6 +37,8 @@ void setup() {
   //  enemies.add(e);
   //}
   hud = new HUD();
+  crosshair = new CrossHair();
+  hotbar = new Hotbar();
 }
 
 
@@ -109,11 +114,14 @@ void draw() {
     shotgun.update();
 
     if (shotgun.checkCollision(player)) {
-      println("poof");
+      //println("poof");
       player.hasShotgun = true;
       shotgun = null;
     }
   }
+
+  if (crosshair != null) crosshair.update();
+  if (hotbar != null) hotbar.update();
 
   player.update();
 
@@ -122,6 +130,9 @@ void draw() {
   Keyboard.update();
 
   //DRAW OBJECTS
+
+
+
 
   for (int i = 0; i < walls.size(); i++) {
     Wall w = walls.get(i);
@@ -153,7 +164,6 @@ void draw() {
     b.draw();
   }
 
-  if (shotgun != null) shotgun.draw();
 
   player.draw();
   //popMatrix here
@@ -161,6 +171,8 @@ void draw() {
   //DRAW HUD
   hud.update();
   hud.draw();
+  hotbar.draw();
+  crosshair.draw();
 }
 
 void calcDeltaTime() {

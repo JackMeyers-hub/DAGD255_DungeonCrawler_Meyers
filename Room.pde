@@ -56,7 +56,7 @@ class Room {
       println(randNum);
       if (randNum <= .75) {
 
-        shotgun = new ShotGun( random(x, x+w), random(y, y+h));
+        shotgun = new ShotGun( random(x + 50, x + w - 50), random(y + 100, y + h - 100));
         println("X: " + x + " ShotgunX: " + shotgun.x);
         shotGunSpawned = true;
       }
