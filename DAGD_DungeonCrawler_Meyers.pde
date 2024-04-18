@@ -49,6 +49,9 @@ void draw() {
   background(128);
   //println(keyCode);
   //pushMatrix here
+
+    text("PLAYER X:" + round(player.x), 100, 50);
+      text("PLAYER Y:" + round(player.y), 100, 70);
   pushMatrix();
   translate(-camera.x, -camera.y);
 
@@ -61,6 +64,9 @@ void draw() {
 
 
   //UPDATE
+  
+
+  
   camera.update();
 
   for (int i = 0; i < walls.size(); i++) {
@@ -114,7 +120,7 @@ void draw() {
     shotgun.update();
 
     if (shotgun.checkCollision(player)) {
-      //println("poof");
+      println("poof");
       player.hasShotgun = true;
       shotgun = null;
     }
@@ -164,6 +170,9 @@ void draw() {
     b.draw();
   }
 
+  if (shotgun != null) {
+    shotgun.draw();
+  }
 
   player.draw();
   //popMatrix here
