@@ -15,6 +15,10 @@ class Room {
 
   Room(float xPos, float yPos) {
 
+    Floor f = new Floor(xPos - 5, yPos+1, w - 95, h - 95);
+    floors.add(f);
+
+
     x = xPos;
     y = yPos;
 
@@ -52,14 +56,28 @@ class Room {
 
     // SPAWN SHOTGUN IF NOT PREVIOUSLY SPAWNED
     if (shotGunSpawned == false) {
-      float randNum = random(1);
-      println(randNum);
-      if (randNum <= .75) {
+      float randShotgun = random(1);
+      println("SHOTGUN PERCENT: " + randShotgun);
+      if (randShotgun <= .25) {
 
         shotgun = new ShotGun( random(x + 50, x + w - 50), random(y + 100, y + h - 100));
         println("X: " + x + " ShotgunX: " + shotgun.x);
         println("Y: " + y + " ShotgunY: " + shotgun.y);
         shotGunSpawned = true;
+      }
+    }
+
+    if (shotGunSpawned && pShotGunSpawned == true) {
+      if (rifleSpawned == false) {
+        float randRifle = random(1);
+        println("RIFLE PERCENT: " + randRifle);
+        if (randRifle <= .25) {
+
+          rifle = new Rifle( random(x + 50, x + w - 50), random(y + 100, y + h - 100));
+          println("X: " + x + " RifleX: " + rifle.x);
+          println("Y: " + y + " RifleY: " + rifle.y);
+          rifleSpawned = true;
+        }
       }
     }
   }
@@ -103,5 +121,27 @@ class Room {
         r.topWall = true;
       }
     }
+
+
+    pShotGunSpawned = shotGunSpawned;
+  }
+}
+
+class Floor extends AABB {
+
+  Floor(float x, float y, float w, float h) {
+
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+
+  void update() {
+  }
+
+  void draw() {
+    fill(#ffffff);
+    rect(x, y, w, h);
   }
 }

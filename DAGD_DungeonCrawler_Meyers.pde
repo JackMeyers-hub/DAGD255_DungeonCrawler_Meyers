@@ -3,11 +3,14 @@ float prevTime = 0;
 boolean leftPressed, rightPressed, pLeftPressed, pRightPressed;
 
 boolean shotGunSpawned = false;
+boolean pShotGunSpawned = false;
+boolean rifleSpawned = false;
 
 float zoomAmount = 1;
 
 Player player;
 ShotGun shotgun;
+Rifle rifle;
 CrossHair crosshair;
 Camera camera;
 HUD hud;
@@ -16,6 +19,7 @@ ArrayList<Enemy> enemies = new ArrayList();
 ArrayList<Wall> walls = new ArrayList();
 ArrayList<Room> rooms = new ArrayList();
 ArrayList<Door> doors = new ArrayList();
+ArrayList<Floor> floors = new ArrayList();
 ArrayList<Rocket> rockets = new ArrayList();
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Rocket> enemyrockets = new ArrayList();
@@ -50,8 +54,8 @@ void draw() {
   //println(keyCode);
   //pushMatrix here
 
-    text("PLAYER X:" + round(player.x), 100, 50);
-      text("PLAYER Y:" + round(player.y), 100, 70);
+  text("PLAYER X:" + round(player.x), 100, 50);
+  text("PLAYER Y:" + round(player.y), 100, 70);
   pushMatrix();
   translate(-camera.x, -camera.y);
 
@@ -64,10 +68,15 @@ void draw() {
 
 
   //UPDATE
-  
 
-  
+
+
   camera.update();
+
+  for (int i = 0; i < floors.size(); i++) {
+    Floor f = floors.get(i);
+    f.update();
+  }
 
   for (int i = 0; i < walls.size(); i++) {
     Wall w = walls.get(i);
@@ -90,14 +99,7 @@ void draw() {
     d.update();
   }
 
-  //  for (int i = 0; i < enemies.size(); i++) {
-  //    Enemy e = enemies.get(i);
-  //    e.update();
 
-  //    if (e.checkCollision(player)) {
-  //      enemies.remove(e);
-  //    }
-  //  }
 
   for (int i = 0; i < bullets.size(); i++) {
 
@@ -120,9 +122,19 @@ void draw() {
     shotgun.update();
 
     if (shotgun.checkCollision(player)) {
-      println("poof");
+      println("SHOTGUN COLLECTED");
       player.hasShotgun = true;
       shotgun = null;
+    }
+  }
+
+  if (rifle != null) {
+    rifle.update();
+
+    if (rifle.checkCollision(player)) {
+      println("RIFLE COLLECTED");
+      player.hasRifle = true;
+      rifle = null;
     }
   }
 
@@ -137,7 +149,10 @@ void draw() {
 
   //DRAW OBJECTS
 
-
+  for (int i =0; i < floors.size(); i++) {
+    Floor f = floors.get(i);
+    f.draw();
+  }
 
 
   for (int i = 0; i < walls.size(); i++) {
@@ -170,8 +185,15 @@ void draw() {
     b.draw();
   }
 
+
+
   if (shotgun != null) {
     shotgun.draw();
+  }
+
+
+  if (rifle != null) {
+    rifle.draw();
   }
 
   player.draw();

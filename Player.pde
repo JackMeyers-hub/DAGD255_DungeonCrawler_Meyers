@@ -10,6 +10,7 @@ class Player extends AABB {
   float shotGunCD = .40;
   float rifleCD = .13;
 
+  PVector location = new PVector();
 
   int invItem = 0;
 
@@ -75,7 +76,7 @@ class Player extends AABB {
 
             Bullet b3 = new Bullet(x, y, angle - radians(10));
             bullets.add(b3);
-            shotGunCD = .40;
+            shotGunCD = 0.43;
           }
         }
       }
@@ -129,7 +130,7 @@ class Player extends AABB {
   }
 
   void draw() {
-    fill(#FF347E);
+    fill(0);
     pushMatrix();
     noStroke();
     translate(x, y);
@@ -187,16 +188,14 @@ class Player extends AABB {
 class CrossHair {
 
   CrossHair() {
-    
   }
 
   void update() {
-
   }
 
   void draw() {
     noStroke();
-    fill(#FFFFFF);
+    fill(0);
     ellipse(mouseX, mouseY, 8, 8);
   }
 }

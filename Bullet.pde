@@ -23,7 +23,7 @@ class Bullet extends AABB {
 
   void draw() {
     noStroke();
-    fill(255, 255, 0);
+    fill(0);
     ellipse(x-halfW, y-halfH, w, h);
   }
 }

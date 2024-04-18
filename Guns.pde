@@ -57,7 +57,7 @@ class Rifle extends AABB {
     this.x = x - w/2;
     this.y = y - h/2;
 
-    setSize(50, 100);
+    setSize(25, 100);
   }
 
   void update() {
@@ -76,7 +76,7 @@ class Rifle extends AABB {
 
   void draw() {
     fill(#585858);
-    rect(x - w/2, y - h/2, 50, 100);
+    rect(x - w/2, y - h/2, 25, 100);
   }
 
   void moveToPlayer() {
