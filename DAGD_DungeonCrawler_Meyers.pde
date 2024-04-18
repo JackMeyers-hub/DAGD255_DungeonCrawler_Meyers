@@ -46,7 +46,7 @@ void setup() {
 void draw() {
   // BACKGROUND AND DELTA TIME
   calcDeltaTime();
-  background(128);
+  background(0);
   //println(keyCode);
   //pushMatrix here
 

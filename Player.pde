@@ -196,7 +196,7 @@ class CrossHair {
 
   void draw() {
     noStroke();
-    fill(00000);
+    fill(#FFFFFF);
     ellipse(mouseX, mouseY, 8, 8);
   }
 }

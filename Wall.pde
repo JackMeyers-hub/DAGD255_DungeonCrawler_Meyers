@@ -23,7 +23,7 @@ class Wall extends AABB {
     super.update();
   }
   void draw() {
-    fill(0);
+    fill(#FFFFFF);
     rect(x-halfW, y-halfH, w, h);
   }
 }
