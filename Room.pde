@@ -5,6 +5,9 @@ class Room {
   float gapSize = 200;
   float wallThickness = 15;
 
+  float enemySpawn = 0;
+
+
   boolean topWall, leftWall, rightWall, bottomWall;
   Door d1, d2, d3, d4;
 
@@ -15,8 +18,42 @@ class Room {
 
   Room(float xPos, float yPos) {
 
+    enemySpawn = round(random(2, 4));
+    println(enemySpawn);
     Floor f = new Floor(xPos - 5, yPos+1, w - 95, h - 95);
     floors.add(f);
+
+    if (rooms.size() >= 1) {
+      if (enemySpawn == 2) {
+        Enemy e1= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e1);
+
+        Enemy e2= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e2);
+      } else if (enemySpawn == 3) {
+        Enemy e1= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e1);
+
+        Enemy e2= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e2);
+
+        Enemy e3= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e3);
+      } else if (enemySpawn == 4) {
+        Enemy e1= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e1);
+
+        Enemy e2= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e2);
+
+        Enemy e3= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e3);
+
+        Enemy e4= new Enemy(xPos + random(w), yPos + random(h));
+        enemies.add(e4);
+      }
+    }
+
 
 
     x = xPos;
@@ -83,6 +120,7 @@ class Room {
   }
 
   void update() {
+    enemySpawn = random(2, 4);
 
     // COLLISION WITH TOP DOOR
     if (player.checkCollision(d1)) {

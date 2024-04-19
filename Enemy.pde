@@ -23,7 +23,7 @@ class Enemy extends AABB {
   Enemy(float x, float y) {
     this.x = x;
     this.y = y;
-    setSize(50, 50);
+    setSize(35, 35);
     currentState = PATROL_STATE;
   }
 
@@ -31,12 +31,12 @@ class Enemy extends AABB {
 
     switch(currentState) {
     case PATROL_STATE:
-      findPointAround();
-      moveToPoint();
-      checkIfAtPoint();
-      if (distToPlayer() < 300) {
-        currentState = ATTACK_STATE;
-      }
+      //findPointAround();
+      //moveToPoint();
+      //checkIfAtPoint();
+      //if (distToPlayer() < 300) {
+      //  currentState = ATTACK_STATE;
+      //}
       break;
 
     case ATTACK_STATE:
@@ -54,18 +54,20 @@ class Enemy extends AABB {
   }
   void draw() {
     pushMatrix();
-    switch(currentState) {
-    case PATROL_STATE:
-      fill(0, 255, 0);
-      break;
-    case CHASE_STATE:
-      fill(255, 255, 0);
-      break;
-    case ATTACK_STATE:
-      fill(255, 0, 0);
-      break;
-    }
-    rotate(playerAngle);
+    fill(0);
+    stroke(3);
+    //switch(currentState) {
+    //case PATROL_STATE:
+    //  fill(#FFFFFF);
+    //  break;
+    //case CHASE_STATE:
+    //  fill(#FFFFFF);
+    //  break;
+    //case ATTACK_STATE:
+    //  fill(#FFFFFF);
+    //  break;
+    //}
+    //rotate(playerAngle);
     rect(x-halfW, y-halfH, w, h);
     popMatrix();
   }
@@ -119,6 +121,14 @@ class Enemy extends AABB {
       canMove = false;
       moveTime = 2;
     }
+  }
+
+  boolean checkCollision(AABB other) {
+    if (edgeR < other.edgeL) return false;
+    if (edgeL > other.edgeR) return false;
+    if (edgeB < other.edgeT) return false;
+    if (edgeT > other.edgeB) return false;
+    return true;
   }
 
   void setSpeed(float speed) {

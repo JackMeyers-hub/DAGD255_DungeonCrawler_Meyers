@@ -9,6 +9,7 @@ boolean rifleSpawned = false;
 float zoomAmount = 1;
 
 Player player;
+
 ShotGun shotgun;
 Rifle rifle;
 CrossHair crosshair;
@@ -33,13 +34,13 @@ void setup() {
   player = new Player(width/2, height/2);
   camera = new Camera(player);
 
+
   Room r = new Room(-camera.x, -camera.y);
   rooms.add(r);
 
-  //for (int i = 0; i < 3; i++) {
-  //  Enemy e= new Enemy(random(width), random(height));
-  //  enemies.add(e);
-  //}
+
+
+
   hud = new HUD();
   crosshair = new CrossHair();
   hotbar = new Hotbar();
@@ -54,8 +55,7 @@ void draw() {
   //println(keyCode);
   //pushMatrix here
 
-  text("PLAYER X:" + round(player.x), 100, 50);
-  text("PLAYER Y:" + round(player.y), 100, 70);
+
   pushMatrix();
   translate(-camera.x, -camera.y);
 
@@ -87,6 +87,15 @@ void draw() {
     }
   }
 
+  for (int i = 0; i < enemies.size(); i++) {
+    Enemy e = enemies.get(i);
+    e.update();
+
+    if (e.isDead) {
+      enemies.remove(e);
+    }
+  }
+
   for (int i = 0; i < rooms.size(); i++) {
     Room r = rooms.get(i);
     r.update();
@@ -105,7 +114,11 @@ void draw() {
 
     Bullet b = bullets.get(i);
     b.update();
-
+    for (int j = 0; j < enemies.size(); j++) {
+      if (b.checkCollision(enemies.get(j))) {
+        enemies.get(j).isDead = true;
+      }
+    }
     if (b.lifeTime <= 0) bullets.remove(b);
   }
 
@@ -172,10 +185,10 @@ void draw() {
 
 
 
-  //for (int i = 0; i < enemies.size(); i++) {
-  //  Enemy e = enemies.get(i);
-  //  e.draw();
-  //}
+  for (int i = 0; i < enemies.size(); i++) {
+    Enemy e = enemies.get(i);
+    e.draw();
+  }
 
 
 
@@ -204,6 +217,8 @@ void draw() {
   hud.draw();
   hotbar.draw();
   crosshair.draw();
+  text("PLAYER X:" + round(player.x), 100, 50);
+  text("PLAYER Y:" + round(player.y), 100, 70);
 }
 
 void calcDeltaTime() {
