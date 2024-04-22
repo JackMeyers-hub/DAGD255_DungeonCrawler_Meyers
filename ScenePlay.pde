@@ -43,7 +43,7 @@ class ScenePlay {
   }
   void update() {
 
-    println(keyCode);
+    //println(keyCode);
     //pushMatrix here
     roomCD -= dt;
     if (roomCD <= 0 && masterCheck) {
@@ -70,6 +70,12 @@ class ScenePlay {
       if (w.checkCollision(player)) {
         player.applyFix(player.findOverlapFix(w));
       }
+
+      for (int j = 0; j < enemies.size(); j++) {
+        if (w.checkCollision(enemies.get(j))) {
+          enemies.get(j).applyFix(enemies.get(j).findOverlapFix(w));
+        }
+      }
     }
 
     for (int i = 0; i < enemies.size(); i++) {
@@ -80,6 +86,7 @@ class ScenePlay {
         enemies.remove(e);
       }
     }
+
 
     for (int i = 0; i < rooms.size(); i++) {
       Room r = rooms.get(i);

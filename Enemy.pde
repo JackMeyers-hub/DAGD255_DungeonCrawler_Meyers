@@ -6,7 +6,7 @@ class Enemy extends AABB {
   float moveAngle;
   float moveTime = 2;
   float attackCD = 1;
-
+  float enemyType;
 
   boolean atEdge;
   boolean playerSpotted;
@@ -25,15 +25,17 @@ class Enemy extends AABB {
     this.y = y;
     setSize(35, 35);
     currentState = PATROL_STATE;
+    enemyType = round(random(0, 3));
   }
 
   void update() {
 
     switch(currentState) {
+
     case PATROL_STATE:
-      //findPointAround();
-      //moveToPoint();
-      //checkIfAtPoint();
+      findPointAround();
+      moveToPoint();
+      checkIfAtPoint();
       //if (distToPlayer() < 300) {
       //  currentState = ATTACK_STATE;
       //}

@@ -17,6 +17,8 @@ class Room {
 
 
   Room(float xPos, float yPos) {
+    enemySpawn = 2;//round(random(2,4));
+
     Floor f = new Floor(xPos - 5, yPos+1, w - 90, h - 95);
     scenePlay.floors.add(f);
 
@@ -24,32 +26,57 @@ class Room {
       if (enemySpawn == 2) {
 
 
-        Enemy e1= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e1= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e1);
 
-        Enemy e2= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e2= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e2);
+
+        //        println(e1.x);
+        //        println(e1.y);
+
+        //        println(e2.x);
+        //        println(e2.y);
       } else if (enemySpawn == 3) {
-        Enemy e1= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e1= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
         scenePlay.enemies.add(e1);
 
-        Enemy e2= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e2= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
         scenePlay.enemies.add(e2);
 
-        Enemy e3= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e3= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
         scenePlay.enemies.add(e3);
+        //println(e1.x);
+        //println(e1.y);
+
+        //println(e2.x);
+        //println(e2.y);
+
+        //println(e3.x);
+        //println(e3.y);
       } else if (enemySpawn == 4) {
-        Enemy e1= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e1= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
         scenePlay.enemies.add(e1);
 
-        Enemy e2= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e2= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
         scenePlay.enemies.add(e2);
 
-        Enemy e3= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e3= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
         scenePlay.enemies.add(e3);
 
-        Enemy e4= new Enemy(xPos + random(w - 90), yPos + random(h- 95));
+        Enemy e4= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
         scenePlay.enemies.add(e4);
+        //println(e1.x);
+        //println(e1.y);
+
+        //println(e2.x);
+        //println(e2.y);
+
+        //println(e3.x);
+        //println(e3.y);
+
+        //println(e4.x);
+        //println(e4.y);
       }
     }
 
@@ -120,7 +147,7 @@ class Room {
 
   void update() {
     enemySpawn = round(random(2, 4));
-    //println(enemySpawn);
+    //println("ENEMY SPAWN" + enemySpawn);
     // COLLISION WITH TOP DOOR
     if (scenePlay.player.checkCollision(d1)) {
       if (!topWall) {
