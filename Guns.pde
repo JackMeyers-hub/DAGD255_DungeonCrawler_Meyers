@@ -40,11 +40,11 @@ class ShotGun extends AABB {
   }
 
   float angleToPlayer() {
-    return atan2(player.y - y, player.x - x);
+    return atan2(scenePlay.player.y - y, scenePlay.player.x - x);
   }
 
   float distanceToPlayer() {
-    return dist(x, y, player.x, player.y);
+    return dist(x, y, scenePlay.player.x, scenePlay.player.y);
   }
 }
 
@@ -90,10 +90,10 @@ class Rifle extends AABB {
   }
 
   float angleToPlayer() {
-    return atan2(player.y - y, player.x - x);
+    return atan2(scenePlay.player.y - y, scenePlay.player.x - x);
   }
 
   float distanceToPlayer() {
-    return dist(x, y, player.x, player.y);
+    return dist(x, y, scenePlay.player.x, scenePlay.player.y);
   }
 }

@@ -1,224 +1,36 @@
+
+SceneTitle sceneTitle;
+ScenePlay scenePlay;
+SceneGameOver sceneGameOver;
+
 float dt = 0;
 float prevTime = 0;
 boolean leftPressed, rightPressed, pLeftPressed, pRightPressed;
 
-boolean shotGunSpawned = false;
-boolean pShotGunSpawned = false;
-boolean rifleSpawned = false;
-
-float zoomAmount = 1;
-
-Player player;
-
-ShotGun shotgun;
-Rifle rifle;
-CrossHair crosshair;
-Camera camera;
-HUD hud;
-Hotbar hotbar;
-ArrayList<Enemy> enemies = new ArrayList();
-ArrayList<Wall> walls = new ArrayList();
-ArrayList<Room> rooms = new ArrayList();
-ArrayList<Door> doors = new ArrayList();
-ArrayList<Floor> floors = new ArrayList();
-ArrayList<Rocket> rockets = new ArrayList();
-ArrayList<Bullet> bullets = new ArrayList();
-ArrayList<Rocket> enemyrockets = new ArrayList();
-
 
 void setup() {
   size(1280, 720);
-  noStroke();
-  noCursor();
-
-  player = new Player(width/2, height/2);
-  camera = new Camera(player);
-
-
-  Room r = new Room(-camera.x, -camera.y);
-  rooms.add(r);
-
-
-
-
-  hud = new HUD();
-  crosshair = new CrossHair();
-  hotbar = new Hotbar();
+  switchToPlay();
 }
 
 
 
 void draw() {
   // BACKGROUND AND DELTA TIME
-  calcDeltaTime();
+
   background(0);
-  //println(keyCode);
-  //pushMatrix here
+  calcDeltaTime();
 
-
-  pushMatrix();
-  translate(-camera.x, -camera.y);
-
-
-
-
-
-  //SPAWN
-
-
-
-  //UPDATE
-
-
-
-  camera.update();
-
-  for (int i = 0; i < floors.size(); i++) {
-    Floor f = floors.get(i);
-    f.update();
+  if (sceneTitle != null) {
+    sceneTitle.update();
+    if (sceneTitle != null) sceneTitle.draw(); // this extra if statement exists because the sceneTitle.update() might result in the scene switching...
+  } else if (scenePlay != null) {
+    scenePlay.update();
+    if (scenePlay != null) scenePlay.draw(); // this extra if statement exists because the scenePlay.update() might result in the scene switching...
+  } else if (sceneGameOver != null) {
+    sceneGameOver.update();
+    if (sceneGameOver != null) sceneGameOver.draw(); // this extra if statement exists because the sceneGameOver.update() might result in the scene switching...
   }
-
-  for (int i = 0; i < walls.size(); i++) {
-    Wall w = walls.get(i);
-    w.update();
-
-    if (w.checkCollision(player)) {
-      player.applyFix(player.findOverlapFix(w));
-    }
-  }
-
-  for (int i = 0; i < enemies.size(); i++) {
-    Enemy e = enemies.get(i);
-    e.update();
-
-    if (e.isDead) {
-      enemies.remove(e);
-    }
-  }
-
-  for (int i = 0; i < rooms.size(); i++) {
-    Room r = rooms.get(i);
-    r.update();
-  }
-
-  //println(rooms.size());
-
-  for (int i = 0; i < doors.size(); i++) {
-    Door d = doors.get(i);
-    d.update();
-  }
-
-
-
-  for (int i = 0; i < bullets.size(); i++) {
-
-    Bullet b = bullets.get(i);
-    b.update();
-    for (int j = 0; j < enemies.size(); j++) {
-      if (b.checkCollision(enemies.get(j))) {
-        enemies.get(j).isDead = true;
-      }
-    }
-    if (b.lifeTime <= 0) bullets.remove(b);
-  }
-
-  for (int i = 0; i < rockets.size(); i++) {
-    Rocket r = rockets.get(i);
-    r.update();
-
-    if (r.lifeTime <= 0) {
-      rockets.remove(r);
-    }
-  }
-
-  if (shotgun != null) {
-    shotgun.update();
-
-    if (shotgun.checkCollision(player)) {
-      println("SHOTGUN COLLECTED");
-      player.hasShotgun = true;
-      shotgun = null;
-    }
-  }
-
-  if (rifle != null) {
-    rifle.update();
-
-    if (rifle.checkCollision(player)) {
-      println("RIFLE COLLECTED");
-      player.hasRifle = true;
-      rifle = null;
-    }
-  }
-
-  if (crosshair != null) crosshair.update();
-  if (hotbar != null) hotbar.update();
-
-  player.update();
-
-  //LATE UPDATE
-  Mouse.update();
-  Keyboard.update();
-
-  //DRAW OBJECTS
-
-  for (int i =0; i < floors.size(); i++) {
-    Floor f = floors.get(i);
-    f.draw();
-  }
-
-
-  for (int i = 0; i < walls.size(); i++) {
-    Wall w = walls.get(i);
-    w.draw();
-  }
-
-  for (int i = 0; i < doors.size(); i++) {
-    Door d = doors.get(i);
-    d.draw();
-  }
-
-  for (int i = 0; i < rockets.size(); i++) {
-    Rocket r = rockets.get(i);
-    r.draw();
-  }
-
-
-
-  for (int i = 0; i < enemies.size(); i++) {
-    Enemy e = enemies.get(i);
-    e.draw();
-  }
-
-
-
-  for (int i = 0; i < bullets.size(); i++) {
-
-    Bullet b = bullets.get(i);
-    b.draw();
-  }
-
-
-
-  if (shotgun != null) {
-    shotgun.draw();
-  }
-
-
-  if (rifle != null) {
-    rifle.draw();
-  }
-
-  player.draw();
-  //popMatrix here
-  popMatrix();
-  //DRAW HUD
-  hud.update();
-  hud.draw();
-  hotbar.draw();
-  crosshair.draw();
-  text("PLAYER X:" + round(player.x), 100, 50);
-  text("PLAYER Y:" + round(player.y), 100, 70);
 }
 
 void calcDeltaTime() {
@@ -242,6 +54,22 @@ void keyPressed() {
 
 void keyReleased() {
   Keyboard.handleKeyUp(keyCode);
+}
+
+void switchToTitle() {
+  sceneTitle = new SceneTitle();
+  scenePlay = null;
+  sceneGameOver = null;
+}
+void switchToPlay() {
+  scenePlay = new ScenePlay();
+  sceneTitle = null;
+  sceneGameOver = null;
+}
+void switchToGameOver() {
+  sceneGameOver = new SceneGameOver();
+  scenePlay = null;
+  sceneTitle = null;
 }
 
 //void mousePressed() {

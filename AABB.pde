@@ -39,14 +39,14 @@ class AABB {
   }
 
   void calcAngleToMouse() {
-    float dx = camera.x + mouseX - x;
-    float dy = camera.y + mouseY - y;
+    float dx = scenePlay.camera.x + mouseX - x;
+    float dy = scenePlay.camera.y + mouseY - y;
     angle = atan2(dy, dx);
   }
 
   void calcAngleToPlayer() {
-    float dx = camera.x + player.x - x;
-    float dy = camera.y + player.y - y;
+    float dx = scenePlay.camera.x + scenePlay.player.x - x;
+    float dy = scenePlay.camera.y + scenePlay.player.y - y;
     playerAngle = atan2(dy, dx);
   }
 

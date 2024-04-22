@@ -57,25 +57,25 @@ class Player extends AABB {
 
       if (leftPressed && !pLeftPressed) {
         Bullet b = new Bullet(x, y, angle);
-        bullets.add(b);
+        scenePlay.bullets.add(b);
       }
       break;
 
     case SHOTGUN:
-      if (player.hasShotgun == true) {
+      if (scenePlay.player.hasShotgun == true) {
 
         shotGunCD -= dt;
         if (shotGunCD <= 0) {
           if (leftPressed && !pLeftPressed) {
 
             Bullet b = new Bullet(x, y, angle);
-            bullets.add(b);
+            scenePlay.bullets.add(b);
 
             Bullet b2 = new Bullet(x, y, angle + radians(10));
-            bullets.add(b2);
+            scenePlay.bullets.add(b2);
 
             Bullet b3 = new Bullet(x, y, angle - radians(10));
-            bullets.add(b3);
+            scenePlay.bullets.add(b3);
             shotGunCD = 0.43;
           }
         }
@@ -88,7 +88,7 @@ class Player extends AABB {
         if (rifleCD <= 0) {
           if (leftPressed) {
             Bullet b = new Bullet(x, y, angle);
-            bullets.add(b);
+            scenePlay.bullets.add(b);
             rifleCD = .13;
           }
         }
@@ -102,7 +102,7 @@ class Player extends AABB {
 
     if (Keyboard.isDown(Keyboard.Q)) {
       Bullet b = new Bullet(x, y, angle);
-      bullets.add(b);
+      scenePlay.bullets.add(b);
     }
 
     if (Keyboard.isDown(Keyboard.ONE)) {
@@ -150,7 +150,7 @@ class Player extends AABB {
           println("is Spawing");
           for (int i = 00; i < 3; i++) {
             Rocket r = new Rocket(x, y, angle);
-            rockets.add(r);
+            scenePlay.rockets.add(r);
             println("Rocket Spawned");
           }
           burstCD = 0.35;

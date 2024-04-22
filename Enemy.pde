@@ -97,8 +97,8 @@ class Enemy extends AABB {
   }
 
   void calcAngleToPlayer() {
-    float dx = camera.x + player.x - x;
-    float dy = camera.y + player.y - y;
+    float dx = scenePlay.camera.x + scenePlay.player.x - x;
+    float dy = scenePlay.camera.y + scenePlay.player.y - y;
     playerAngle = atan2(dy, dx);
   }
 
@@ -112,7 +112,7 @@ class Enemy extends AABB {
   }
 
   float distToPlayer() {
-    return dist(x, y, player.x, player.y);
+    return dist(x, y, scenePlay.player.x, scenePlay.player.y);
   }
 
   void waitSeconds() {

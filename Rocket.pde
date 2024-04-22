@@ -44,15 +44,15 @@ class Rocket extends AABB {
       }
     }
 
-    if (x <= camera.x) {
+    if (x <= scenePlay.camera.x) {
       isDead = true;
       //println("died");
     }
   }
 
   void storeAngleToMouse() {
-    float dx = camera.x + mouseX - x;
-    float dy = camera.y + mouseY - y;
+    float dx = scenePlay.camera.x + mouseX - x;
+    float dy = scenePlay.camera.y + mouseY - y;
     accelAngle = atan2(dy, dx);
   }
 

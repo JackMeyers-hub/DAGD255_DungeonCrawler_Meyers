@@ -2,7 +2,7 @@ class HUD {
 
   ArrayList<Button> buttons = new ArrayList();
 
-  float invItem = player.invItem;
+  float invItem;
 
 
   HUD() {
@@ -11,6 +11,8 @@ class HUD {
   }
 
   void update() {
+
+    invItem = scenePlay.player.invItem;
     for (int i = 0; i < buttons.size(); i++) {
       Button b = buttons.get(i);
       b.update();
@@ -41,7 +43,7 @@ class HUD {
 }
 
 class Hotbar {
-  int invItem = player.invItem;
+  int invItem;
 
   final int PISTOL = 0;
   final int SHOTGUN = 1;
@@ -51,7 +53,7 @@ class Hotbar {
   }
 
   void update() {
-    invItem = player.invItem;
+    invItem = scenePlay.player.invItem;
   }
 
   void draw() {
@@ -73,7 +75,7 @@ class Hotbar {
       popMatrix();
       break;
     case SHOTGUN:
-      if (player.hasShotgun) {
+      if (scenePlay.player.hasShotgun) {
         //PISTOL
         rect(50, height - 150, 100, 100);
         //RIFLE
@@ -86,7 +88,7 @@ class Hotbar {
       }
       break;
     case RIFLE:
-      if (player.hasRifle) {
+      if (scenePlay.player.hasRifle) {
         //PISTOL
         rect(50, height - 150, 100, 100);
         //SHOTGUN
