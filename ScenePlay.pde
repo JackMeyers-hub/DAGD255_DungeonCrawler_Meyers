@@ -43,10 +43,9 @@ class ScenePlay {
   }
   void update() {
 
-    //println(keyCode);
+    println(keyCode);
     //pushMatrix here
     roomCD -= dt;
-    println(roomCD);
     if (roomCD <= 0 && masterCheck) {
       println("ROOM SPAWNED");
       Room r = new Room(-camera.x, -camera.y);
