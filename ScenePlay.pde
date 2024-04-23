@@ -74,6 +74,7 @@ class ScenePlay {
       for (int j = 0; j < enemies.size(); j++) {
         if (w.checkCollision(enemies.get(j))) {
           enemies.get(j).applyFix(enemies.get(j).findOverlapFix(w));
+          enemies.get(j).reverseDirection();
         }
       }
     }

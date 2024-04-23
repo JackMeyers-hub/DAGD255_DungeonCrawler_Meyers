@@ -34,11 +34,11 @@ class Enemy extends AABB {
 
     case PATROL_STATE:
       findPointAround();
-      moveToPoint();
+      //moveToPoint();
       checkIfAtPoint();
-      //if (distToPlayer() < 300) {
-      //  currentState = ATTACK_STATE;
-      //}
+      if (distToPlayer() < 300) {
+        currentState = ATTACK_STATE;
+      }
       break;
 
     case ATTACK_STATE:
@@ -87,6 +87,7 @@ class Enemy extends AABB {
         setSpeed(200);
         break;
       }
+      moveToPoint();
     }
   }
 
@@ -122,6 +123,16 @@ class Enemy extends AABB {
     if (moveTime <= 0) {
       canMove = false;
       moveTime = 2;
+    }
+  }
+
+  void reverseDirection() {
+    float timeout = 3;
+    timeout -= dt;
+    speedX *= -1;
+    speedY*= -1;
+    if (timeout <= 0) {
+      canMove = false;
     }
   }
 
