@@ -25,6 +25,7 @@ class ScenePlay {
   ArrayList<Floor> floors = new ArrayList();
   ArrayList<Rocket> rockets = new ArrayList();
   ArrayList<Bullet> bullets = new ArrayList();
+  ArrayList<Bullet> ebullets = new ArrayList();
   ArrayList<Rocket> enemyrockets = new ArrayList();
 
 
@@ -74,7 +75,7 @@ class ScenePlay {
       for (int j = 0; j < enemies.size(); j++) {
         if (w.checkCollision(enemies.get(j))) {
           enemies.get(j).applyFix(enemies.get(j).findOverlapFix(w));
-          enemies.get(j).reverseDirection();
+          enemies.get(j).reverseTarget();
         }
       }
     }
@@ -113,6 +114,19 @@ class ScenePlay {
         }
       }
       if (b.lifeTime <= 0) bullets.remove(b);
+    }
+
+    for (int i = 0; i < ebullets.size(); i++) {
+      Bullet b = ebullets.get(i);
+      b.update();
+
+      if (b.checkCollision(player)) {
+
+        //player will take damage
+      }
+
+
+      if (b.lifeTime <= 0) ebullets.remove(b);
     }
 
     for (int i = 0; i < rockets.size(); i++) {
@@ -193,6 +207,11 @@ class ScenePlay {
       b.draw();
     }
 
+    for (int i = 0; i < ebullets.size(); i++) {
+
+      Bullet b = ebullets.get(i);
+      b.draw();
+    }
 
 
     if (shotgun != null) {

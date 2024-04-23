@@ -6,7 +6,7 @@ class Enemy extends AABB {
   float moveAngle;
   float moveTime = 2;
   float attackCD = 1;
-  float enemyType;
+
 
   boolean atEdge;
   boolean playerSpotted;
@@ -14,10 +14,19 @@ class Enemy extends AABB {
   boolean canMove = false;
 
   final int PATROL_STATE = 0;
-  final int CHASE_STATE = 1;
+  final int EXPLODE_STATE = 1;
   final int ATTACK_STATE = 2;
 
+  final int PISTOL_ENEMY = 0;
+  final int SHOTGUN_ENEMY = 1;
+  final int RIFLE_ENEMY = 2;
+
+
   int currentState;
+  int enemyType;
+
+
+
 
 
   Enemy(float x, float y) {
@@ -25,25 +34,46 @@ class Enemy extends AABB {
     this.y = y;
     setSize(35, 35);
     currentState = PATROL_STATE;
-    enemyType = round(random(0, 3));
+    //enemyType = round(random(0, 2));
+    enemyType = 0;
   }
 
   void update() {
+    calcAngleToPlayer();
+
 
     switch(currentState) {
 
     case PATROL_STATE:
       findPointAround();
-      //moveToPoint();
+      moveToPoint();
       checkIfAtPoint();
-      if (distToPlayer() < 300) {
+      if (distToPlayer() < 200) {
         currentState = ATTACK_STATE;
       }
       break;
 
     case ATTACK_STATE:
 
-      if (distToPlayer() > 300) {
+      switch(enemyType) {
+
+      case PISTOL_ENEMY:
+        calcAngleToPlayer();
+        Bullet b = new Bullet(x, y, playerAngle);
+        scenePlay.ebullets.add(b);
+
+        break;
+
+      case SHOTGUN_ENEMY:
+
+        break;
+
+      case RIFLE_ENEMY:
+
+        break;
+      }
+
+      if (distToPlayer() > 200) {
         currentState = PATROL_STATE;
       }
       break;
@@ -87,7 +117,6 @@ class Enemy extends AABB {
         setSpeed(200);
         break;
       }
-      moveToPoint();
     }
   }
 
@@ -100,8 +129,14 @@ class Enemy extends AABB {
   }
 
   void calcAngleToPlayer() {
-    float dx = scenePlay.camera.x + scenePlay.player.x - x;
-    float dy = scenePlay.camera.y + scenePlay.player.y - y;
+    float dx = scenePlay.player.x - x;
+    float dy = scenePlay.player.y - y;
+    playerAngle = atan2(dy, dx);
+  }
+
+  void calcAngleAroundPlayer() {
+    float dx = scenePlay.player.x - x;
+    float dy = scenePlay.player.y - y;
     playerAngle = atan2(dy, dx);
   }
 
@@ -134,6 +169,11 @@ class Enemy extends AABB {
     if (timeout <= 0) {
       canMove = false;
     }
+  }
+
+  void reverseTarget() {
+    targetX = scenePlay.player.x + random(-100, 100);
+    targetY = scenePlay.player.y + random(-100, 100);
   }
 
   boolean checkCollision(AABB other) {
