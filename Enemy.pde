@@ -12,6 +12,8 @@ class Enemy extends AABB {
   boolean playerSpotted;
   boolean canAttack;
   boolean canMove = false;
+  boolean isDead = false;
+
 
   final int PATROL_STATE = 0;
   final int EXPLODE_STATE = 1;
@@ -20,6 +22,8 @@ class Enemy extends AABB {
   final int PISTOL_ENEMY = 0;
   final int SHOTGUN_ENEMY = 1;
   final int RIFLE_ENEMY = 2;
+
+
 
 
   int currentState;
@@ -34,8 +38,8 @@ class Enemy extends AABB {
     this.y = y;
     setSize(35, 35);
     currentState = PATROL_STATE;
-    //enemyType = round(random(0, 2));
-    enemyType = 0;
+    enemyType = round(random(0, 2));
+    //enemyType = 2;
   }
 
   void update() {
@@ -46,9 +50,9 @@ class Enemy extends AABB {
 
     case PATROL_STATE:
       findPointAround();
-      moveToPoint();
+      moveToTarget();
       checkIfAtPoint();
-      if (distToPlayer() < 200) {
+      if (distToPlayer() < 600) {
         currentState = ATTACK_STATE;
       }
       break;
@@ -58,22 +62,89 @@ class Enemy extends AABB {
       switch(enemyType) {
 
       case PISTOL_ENEMY:
+        // movement
+        findPointAround();
+        moveToTarget();
+        checkIfAtPoint();
+        // attack
         calcAngleToPlayer();
-        Bullet b = new Bullet(x, y, playerAngle);
-        scenePlay.ebullets.add(b);
-
+        attackCD -= dt;
+        if (attackCD <= 0) {
+          Bullet b = new Bullet(x, y, playerAngle);
+          scenePlay.ebullets.add(b);
+          attackCD = 1;
+        }
         break;
 
       case SHOTGUN_ENEMY:
+        // movement
+        findPointAround();
+        moveToTarget();
+        checkIfAtPoint();
+        // attack
+        calcAngleToPlayer();
+        attackCD -= dt;
+        if (attackCD <= 0) {
+          Bullet b = new Bullet(x, y, playerAngle);
+          scenePlay.ebullets.add(b);
+
+          Bullet b2 = new Bullet(x, y, playerAngle + radians(15));
+          scenePlay.ebullets.add(b2);
+
+          Bullet b3 = new Bullet(x, y, playerAngle - radians(15));
+          scenePlay.ebullets.add(b3);
+          attackCD = 2;
+        }
+
+        if (isDead && scenePlay.shotGunSpawned == false) {
+          println("ENEMY KILLED");
+          float randShotgun = random(1);
+          println("SHOTGUN PERCENT: " + randShotgun);
+          if (randShotgun <= .25) {
+
+            scenePlay.shotgun = new ShotGun(x, y);
+            println("X: " + x + " ShotgunX: " + scenePlay.shotgun.x);
+            println("Y: " + y + " ShotgunY: " + scenePlay.shotgun.y);
+            scenePlay.shotGunSpawned = true;
+          }
+        }
 
         break;
 
       case RIFLE_ENEMY:
+        // movement
+        findPointAround();
+        moveToTarget();
+        checkIfAtPoint();
+        // attack
+        calcAngleToPlayer();
+        attackCD -= dt;
+        if (attackCD <= 0) {
 
+          Bullet b = new Bullet(x, y, playerAngle);
+          scenePlay.ebullets.add(b);
+
+          attackCD = .2;
+        }
+
+
+        if (isDead && scenePlay.shotGunSpawned && scenePlay.pShotGunSpawned == true) {
+          if (scenePlay.rifleSpawned == false) {
+            float randRifle = random(1);
+            println("RIFLE PERCENT: " + randRifle);
+            if (randRifle <= .25) {
+
+              scenePlay.rifle = new Rifle( random(x + 50, x + w - 50), random(y + 100, y + h - 100));
+              println("X: " + x + " RifleX: " + scenePlay.rifle.x);
+              println("Y: " + y + " RifleY: " + scenePlay.rifle.y);
+              scenePlay.rifleSpawned = true;
+            }
+          }
+        }
         break;
       }
 
-      if (distToPlayer() > 200) {
+      if (distToPlayer() > 600) {
         currentState = PATROL_STATE;
       }
       break;
@@ -120,7 +191,7 @@ class Enemy extends AABB {
     }
   }
 
-  void moveToPoint() {
+  void moveToTarget() {
     if (canMove) {
       moveAngle = atan2(targetY- y, targetX - x);
       x += speedX * cos(moveAngle) * dt;

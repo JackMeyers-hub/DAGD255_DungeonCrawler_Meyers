@@ -65,41 +65,40 @@ class Hotbar {
     switch(invItem) {
     case PISTOL:
       //SHOTGUN
-      rect(150, height - 150, 100, 100);
+      rect(150, height - 250, 100, 100);
       //RIFLE
-      rect(250, height - 150, 100, 100);
+      rect(250, height - 250, 100, 100);
       //PISTOL
       pushMatrix();
       scale(1.2);
-      rect(25, height - 254, 100, 100);
+      rect(25, height - 400, 100, 100);
       popMatrix();
       break;
     case SHOTGUN:
-      if (scenePlay.player.hasShotgun) {
-        //PISTOL
-        rect(50, height - 150, 100, 100);
-        //RIFLE
-        rect(250, height - 150, 100, 100);
-        //SHOTGUN
-        pushMatrix();
-        scale(1.2);
-        rect(115, height - 254, 100, 100);
-        popMatrix();
-      }
+
+      //PISTOL
+      rect(50, height - 250, 100, 100);
+      //RIFLE
+      rect(250, height - 250, 100, 100);
+      //SHOTGUN
+      pushMatrix();
+      scale(1.2);
+      rect(115, height - 400, 100, 100);
+      popMatrix();
+
       break;
     case RIFLE:
-      if (scenePlay.player.hasRifle) {
-        //PISTOL
-        rect(50, height - 150, 100, 100);
-        //SHOTGUN
-        rect(150, height - 150, 100, 100);
-        //RIFLE
-        pushMatrix();
-        scale(1.2);
-        rect(205, height - 254, 100, 100);
-        popMatrix();
-        break;
-      }
+
+      //PISTOL
+      rect(50, height - 250, 100, 100);
+      //SHOTGUN
+      rect(150, height - 250, 100, 100);
+      //RIFLE
+      pushMatrix();
+      scale(1.2);
+      rect(205, height - 400, 100, 100);
+      popMatrix();
+      break;
     }
   }
 }

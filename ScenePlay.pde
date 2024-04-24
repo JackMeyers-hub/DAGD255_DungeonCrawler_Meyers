@@ -68,6 +68,9 @@ class ScenePlay {
       Wall w = walls.get(i);
       w.update();
 
+      //IDENTIFIER HELP 1 = top, 2 = right, 3 = left, 4 = bottom.
+
+
       if (w.checkCollision(player)) {
         player.applyFix(player.findOverlapFix(w));
       }
@@ -113,6 +116,28 @@ class ScenePlay {
           enemies.get(j).isDead = true;
         }
       }
+
+      for (int j = 0; j < walls.size(); j++) {
+
+        if (walls.get(j).identifier == 1) {
+          if (bullets.get(i).checkCollision(walls.get(j))) {
+            bullets.get(i).velocity.y *= -1;
+          }
+        } else if (walls.get(j).identifier == 2) {
+          if (bullets.get(i).checkCollision(walls.get(j))) {
+            bullets.get(i).velocity.x *= -1;
+          }
+        } else if (walls.get(j).identifier == 3) {
+          if (bullets.get(i).checkCollision(walls.get(j))) {
+            bullets.get(i).velocity.x *= -1;
+          }
+        } else if (walls.get(j).identifier ==4) {
+          if (bullets.get(i).checkCollision(walls.get(j))) {
+            bullets.get(i).velocity.y *= -1;
+          }
+        }
+      }
+
       if (b.lifeTime <= 0) bullets.remove(b);
     }
 
@@ -123,6 +148,27 @@ class ScenePlay {
       if (b.checkCollision(player)) {
 
         //player will take damage
+      }
+
+      for (int j = 0; j < walls.size(); j++) {
+
+        if (walls.get(j).identifier == 1) {
+          if (ebullets.get(i).checkCollision(walls.get(j))) {
+            ebullets.get(i).velocity.y *= -1;
+          }
+        } else if (walls.get(j).identifier == 2) {
+          if (ebullets.get(i).checkCollision(walls.get(j))) {
+            ebullets.get(i).velocity.x *= -1;
+          }
+        } else if (walls.get(j).identifier == 3) {
+          if (ebullets.get(i).checkCollision(walls.get(j))) {
+            ebullets.get(i).velocity.x *= -1;
+          }
+        } else if (walls.get(j).identifier ==4) {
+          if (ebullets.get(i).checkCollision(walls.get(j))) {
+            ebullets.get(i).velocity.y *= -1;
+          }
+        }
       }
 
 

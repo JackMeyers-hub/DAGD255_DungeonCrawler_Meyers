@@ -8,6 +8,9 @@ class ShotGun extends AABB {
     this.y = y - h/2;
 
     setSize(50, 100);
+
+    velocity.x = random(100, 300);
+    velocity.y = random(100, 300);
   }
 
   void update() {
@@ -58,6 +61,9 @@ class Rifle extends AABB {
     this.y = y - h/2;
 
     setSize(25, 100);
+
+    velocity.x = random(100, 300);
+    velocity.y = random(100, 300);
   }
 
   void update() {

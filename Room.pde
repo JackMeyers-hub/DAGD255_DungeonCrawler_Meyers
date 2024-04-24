@@ -15,6 +15,9 @@ class Room {
   float platformHeight = h - h/2 - gapSize/2;
 
 
+  int numRooms = 0;
+
+
 
   Room(float xPos, float yPos) {
     enemySpawn = 2;//round(random(2,4));
@@ -88,61 +91,42 @@ class Room {
     // TOP WALLS
     Wall w1 = new Wall(x + platformWidth/2, y + wallThickness/2, platformWidth, wallThickness);
     scenePlay.walls.add(w1);
+    w1.identifier = 1;
     Wall w2 = new Wall(w1.x + gapSize/2 + w1.w, y + wallThickness/2, platformWidth, wallThickness);
     scenePlay.walls.add(w2);
+    w2.identifier = 1;
     d1 = new Door(x + w/2 - gapSize/4, y + wallThickness/2, wallThickness);
     scenePlay.doors.add(d1);
 
     //RIGHT WALLS
     Wall w3 = new Wall(w1.x + w/2 + w1.w/2, y + platformHeight/2, wallThickness, platformHeight);
     scenePlay.walls.add(w3);
+    w3.identifier = 2;
     Wall w4 = new Wall(w1.x + w/2 + w1.w/2, w3.y + w3.h + gapSize/2, wallThickness, platformHeight);
     scenePlay.walls.add(w4);
+    w4.identifier = 2;
     d2 = new Door(w1.x + w/2 + w1.w/2, y + h/2 - gapSize/4, wallThickness);
     scenePlay.doors.add(d2);
 
     // LEFT WALLS
     Wall w7 = new Wall(w1.x - platformWidth/2, y + platformHeight/2, wallThickness, platformHeight);
     scenePlay.walls.add(w7);
+    w7.identifier = 3;
     Wall w8 = new Wall(w1.x - platformWidth/2, w7.y + w7.h + gapSize/2, wallThickness, platformHeight);
     scenePlay.walls.add(w8);
+    w8.identifier = 3;
     d4 = new Door(w1.x - platformWidth/2, y + h/2 - gapSize/4, wallThickness);
     scenePlay.doors.add(d4);
 
     // BOTTOM WALLS
     Wall w5 = new Wall(x + platformWidth/2, y + platformHeight*2 + gapSize/2, platformWidth, wallThickness);
     scenePlay.walls.add(w5);
+    w5.identifier = 4;
     Wall w6 = new Wall(w5.x + gapSize/2 + w1.w, y + platformHeight*2 + gapSize/2, platformWidth, wallThickness);
     scenePlay.walls.add(w6);
+    w6.identifier = 4;
     d3 = new Door(x + w/2 - gapSize/4, y + platformHeight*2 + gapSize/2, wallThickness);
     scenePlay.doors.add(d3);
-
-    // SPAWN SHOTGUN IF NOT PREVIOUSLY SPAWNED
-    if (scenePlay.shotGunSpawned == false) {
-      float randShotgun = random(1);
-      println("SHOTGUN PERCENT: " + randShotgun);
-      if (randShotgun <= .25) {
-
-        scenePlay.shotgun = new ShotGun( random(x + 50, x + w - 50), random(y + 100, y + h - 100));
-        println("X: " + x + " ShotgunX: " + scenePlay.shotgun.x);
-        println("Y: " + y + " ShotgunY: " + scenePlay.shotgun.y);
-        scenePlay.shotGunSpawned = true;
-      }
-    }
-
-    if (scenePlay.shotGunSpawned && scenePlay.pShotGunSpawned == true) {
-      if (scenePlay.rifleSpawned == false) {
-        float randRifle = random(1);
-        println("RIFLE PERCENT: " + randRifle);
-        if (randRifle <= .25) {
-
-          scenePlay.rifle = new Rifle( random(x + 50, x + w - 50), random(y + 100, y + h - 100));
-          println("X: " + x + " RifleX: " + scenePlay.rifle.x);
-          println("Y: " + y + " RifleY: " + scenePlay.rifle.y);
-          scenePlay.rifleSpawned = true;
-        }
-      }
-    }
   }
 
   void update() {
@@ -151,8 +135,9 @@ class Room {
     // COLLISION WITH TOP DOOR
     if (scenePlay.player.checkCollision(d1)) {
       if (!topWall) {
+        numRooms++;
         topWall = true;
-        Room r = new Room(x, y - h + platformHeight/2 - 45 );
+        Room r = new Room(x, y - h + platformHeight/2 - 50 );
         scenePlay.rooms.add(r);
         r.bottomWall = true;
       }
@@ -161,8 +146,9 @@ class Room {
     // COLLISION WITH RIGHT DOOR
     if (scenePlay.player.checkCollision(d2)) {
       if (!rightWall) {
+        numRooms++;
         rightWall = true;
-        Room r = new Room(x + w/2 + platformWidth, y);
+        Room r = new Room(x + w/2 + platformWidth + 5, y);
         scenePlay.rooms.add(r);
         r.leftWall = true;
       }
@@ -170,8 +156,9 @@ class Room {
     // COLLISION WITH LEFT DOOR
     if (scenePlay.player.checkCollision(d4)) {
       if (!leftWall) {
+        numRooms++;
         leftWall = true;
-        Room r = new Room(x - platformWidth - w/2, y);
+        Room r = new Room(x - platformWidth - w/2 - 5, y);
         scenePlay.rooms.add(r);
         r.rightWall = true;
       }
@@ -179,8 +166,9 @@ class Room {
     // COLLISION WITH BOTTOM DOOR
     if (scenePlay.player.checkCollision(d3)) {
       if (!bottomWall) {
+        numRooms++;
         bottomWall = true;
-        Room r = new Room(x, y + h - gapSize/2 - 6);
+        Room r = new Room(x, y + h - gapSize/2 );
         scenePlay.rooms.add(r);
         r.topWall = true;
       }

@@ -18,6 +18,11 @@ class Bullet extends AABB {
 
     if (lifeTime <= 0) isDead = true;
 
+
+
+
+
+
     super.update();
   }
 

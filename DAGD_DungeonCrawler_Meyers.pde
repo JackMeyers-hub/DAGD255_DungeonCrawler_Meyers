@@ -9,7 +9,7 @@ boolean leftPressed, rightPressed, pLeftPressed, pRightPressed;
 
 
 void setup() {
-  size(1280, 720);
+  size(1920, 1080);
   switchToPlay();
 }
 
@@ -18,8 +18,8 @@ void setup() {
 void draw() {
   // BACKGROUND AND DELTA TIME
 
-  //background(#A29A9A);
-  background(0);
+  background(#A29A9A);
+  //background(0);
   calcDeltaTime();
 
   if (sceneTitle != null) {

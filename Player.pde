@@ -25,7 +25,7 @@ class Player extends AABB {
 
     x = xPos;
     y = yPos;
-    setSize(50, 50);
+    setSize(40, 40);
   }
 
   void update() {
