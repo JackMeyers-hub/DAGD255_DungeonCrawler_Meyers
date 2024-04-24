@@ -18,8 +18,8 @@ void setup() {
 void draw() {
   // BACKGROUND AND DELTA TIME
 
-  background(#A29A9A);
-  //background(0);
+  //background(#A29A9A);
+  background(0);
   calcDeltaTime();
 
   if (sceneTitle != null) {
