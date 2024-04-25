@@ -103,6 +103,39 @@ class Hotbar {
   }
 }
 
+
+
+
+
+class HealthBar extends AABB {
+  float health;
+  float barLength;
+
+  HealthBar(float x, float y) {
+    this.x = x;
+    this.y = y;
+    setSize(50, 200);
+  }
+
+  void update() {
+    health = scenePlay.player.playerHealth;
+    barLength = map(health, 0, 100, 0, 290);
+  }
+
+
+  void draw() {
+    fill(0);
+    rect(50, height - 100, 300, 70);
+    fill(255, 0, 0);
+    rect(55, height - 95, barLength, 60);
+  }
+}
+
+
+
+
+
+
 class Button {
   float x, y, w = 150, h = 50;
   String buttonName;

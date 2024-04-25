@@ -38,7 +38,7 @@ class Enemy extends AABB {
     this.y = y;
     setSize(35, 35);
     currentState = PATROL_STATE;
-    enemyType = round(random(0, 2));
+    enemyType = int(random(-1, 3));
     //enemyType = 2;
   }
 
@@ -100,7 +100,7 @@ class Enemy extends AABB {
           println("ENEMY KILLED");
           float randShotgun = random(1);
           println("SHOTGUN PERCENT: " + randShotgun);
-          if (randShotgun <= .25) {
+          if (randShotgun <= .35) {
 
             scenePlay.shotgun = new ShotGun(x, y);
             println("X: " + x + " ShotgunX: " + scenePlay.shotgun.x);

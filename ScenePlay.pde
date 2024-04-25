@@ -17,6 +17,7 @@ class ScenePlay {
   Camera camera;
   HUD hud;
   Hotbar hotbar;
+  HealthBar healthbar;
 
   ArrayList<Enemy> enemies = new ArrayList();
   ArrayList<Wall> walls = new ArrayList();
@@ -41,8 +42,12 @@ class ScenePlay {
     hud = new HUD();
     crosshair = new CrossHair();
     hotbar = new Hotbar();
+    healthbar = new HealthBar(width/2, 100);
   }
   void update() {
+
+
+
 
     //println(keyCode);
     //pushMatrix here
@@ -146,7 +151,7 @@ class ScenePlay {
       b.update();
 
       if (b.checkCollision(player)) {
-
+        scenePlay.player.playerHealth -= 1.5;
         //player will take damage
       }
 
@@ -208,10 +213,12 @@ class ScenePlay {
     if (hotbar != null) hotbar.update();
 
     player.update();
-
+    healthbar.update();
     //LATE UPDATE
     Mouse.update();
     Keyboard.update();
+
+    if (player.playerHealth <= 0) switchToGameOver();
   }
   void draw() {
 
@@ -270,8 +277,10 @@ class ScenePlay {
     }
 
     player.draw();
+
     //popMatrix here
     popMatrix();
+    healthbar.draw();
     //DRAW HUD
     if (hud != null) {
       hud.draw();

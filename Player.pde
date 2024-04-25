@@ -9,8 +9,11 @@ class Player extends AABB {
   float numBursts = 3;
   float shotGunCD = .40;
   float rifleCD = .13;
+  float playerHealth;
 
   PVector location = new PVector();
+
+
 
   int invItem = 0;
 
@@ -26,6 +29,7 @@ class Player extends AABB {
     x = xPos;
     y = yPos;
     setSize(40, 40);
+    playerHealth = 100;
   }
 
   void update() {
