@@ -2,8 +2,8 @@ class Player extends AABB {
 
   int level = 1;
   boolean isBursting;
-  boolean hasShotgun = false;
-  boolean hasRifle = false;
+  boolean hasShotgun = true;
+  boolean hasRifle = true;
 
   float burstCD = 0;
   float numBursts = 3;

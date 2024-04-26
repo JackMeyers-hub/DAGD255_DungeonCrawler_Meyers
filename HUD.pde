@@ -65,38 +65,85 @@ class Hotbar {
     switch(invItem) {
     case PISTOL:
       //SHOTGUN
+      pushMatrix();
       rect(150, height - 250, 100, 100);
+      textSize(25);
+      fill(0);
+      text("Shotgun", 200, height - 200);
+      fill(#676767);
+      popMatrix();
       //RIFLE
+      pushMatrix();
       rect(250, height - 250, 100, 100);
+      textSize(25);
+      fill(0);
+      text("Rifle", 300, height - 200);
+      fill(#676767);
+      popMatrix();
       //PISTOL
       pushMatrix();
       scale(1.2);
       rect(25, height - 400, 100, 100);
+      textSize(35);
+      fill(0);
+      text("Pistol", 75, height - 355);
       popMatrix();
       break;
     case SHOTGUN:
 
       //PISTOL
+      pushMatrix();
       rect(50, height - 250, 100, 100);
+      textSize(25);
+      fill(0);
+      text("Pistol", 100, height - 200);
+      fill(#676767);
+      popMatrix();
       //RIFLE
+      pushMatrix();
       rect(250, height - 250, 100, 100);
+      textSize(25);
+      fill(0);
+      text("Rifle", 300, height - 200);
+      fill(#676767);
+      popMatrix();
       //SHOTGUN
       pushMatrix();
       scale(1.2);
       rect(115, height - 400, 100, 100);
+      textSize(25);
+      fill(0);
+      text("Shotgun", 165, height - 350);
+
       popMatrix();
 
       break;
     case RIFLE:
 
       //PISTOL
+      pushMatrix();
       rect(50, height - 250, 100, 100);
+      textSize(25);
+      fill(0);
+      text("Pistol", 100, height - 200);
+      fill(#676767);
+      popMatrix();
       //SHOTGUN
+      pushMatrix();
       rect(150, height - 250, 100, 100);
+      textSize(25);
+      fill(0);
+      text("Shotgun", 200, height - 200);
+      fill(#676767);
+      popMatrix();
       //RIFLE
       pushMatrix();
       scale(1.2);
-      rect(205, height - 400, 100, 100);
+      rect(210, height - 400, 100, 100);
+      textSize(35);
+      fill(0);
+      text("Rifle", 260, height - 350);
+      fill(#676767);
       popMatrix();
       break;
     }

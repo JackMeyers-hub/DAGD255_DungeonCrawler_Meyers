@@ -22,7 +22,10 @@ class ScenePlay {
   ArrayList<Enemy> enemies = new ArrayList();
   ArrayList<Wall> walls = new ArrayList();
   ArrayList<Room> rooms = new ArrayList();
+  ArrayList<HallWayUD> hallwaysud = new ArrayList();
+  ArrayList<HallWayRL> hallwaysrl = new ArrayList();
   ArrayList<Door> doors = new ArrayList();
+  ArrayList<Particle> particles = new ArrayList();
   ArrayList<Floor> floors = new ArrayList();
   ArrayList<Rocket> rockets = new ArrayList();
   ArrayList<Bullet> bullets = new ArrayList();
@@ -98,6 +101,11 @@ class ScenePlay {
     }
 
 
+    for (int i = 0; i < particles.size(); i++) {
+      Particle p = particles.get(i);
+      p.update();
+    }
+
     for (int i = 0; i < rooms.size(); i++) {
       Room r = rooms.get(i);
       r.update();
@@ -119,6 +127,15 @@ class ScenePlay {
       for (int j = 0; j < enemies.size(); j++) {
         if (b.checkCollision(enemies.get(j))) {
           enemies.get(j).isDead = true;
+
+          int numParticles = (int)random(50, 80);
+          for (int k = 0; k < numParticles; k++) {
+            Particle p = new Particle(b.x, b.y);
+            p.angle = radians(random(359));
+            p.velocity = new PVector(random(150, 500), random(150, 500));
+            p.friction = 0.95;
+            particles.add(p);
+          }
         }
       }
 
@@ -252,6 +269,10 @@ class ScenePlay {
       e.draw();
     }
 
+    for (int i = 0; i < particles.size(); i++) {
+      Particle p = particles.get(i);
+      p.draw();
+    }
 
 
     for (int i = 0; i < bullets.size(); i++) {

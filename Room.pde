@@ -5,7 +5,7 @@ class Room {
   float gapSize = 200;
   float wallThickness = 15;
 
-  float enemySpawn = 0;
+  int enemySpawn = 0;
 
 
   boolean topWall, leftWall, rightWall, bottomWall;
@@ -15,19 +15,19 @@ class Room {
   float platformHeight = h - h/2 - gapSize/2;
 
 
-  int numRooms = 0;
+  int numRooms = 1;
 
 
 
   Room(float xPos, float yPos) {
-    enemySpawn = 2;//round(random(2,4));
+    enemySpawn = int(random(2, 4));
+    println("ENEMYSPAWN" + enemySpawn);
 
     Floor f = new Floor(xPos - 5, yPos+1, w - 90, h - 95);
     scenePlay.floors.add(f);
 
     if (scenePlay.rooms.size() >= 1) {
       if (enemySpawn == 2) {
-
 
         Enemy e1= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e1);
@@ -41,14 +41,17 @@ class Room {
         //        println(e2.x);
         //        println(e2.y);
       } else if (enemySpawn == 3) {
-        Enemy e1= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
+
+        Enemy e1= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e1);
 
-        Enemy e2= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
+        Enemy e2= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e2);
 
-        Enemy e3= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
+        Enemy e3= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e3);
+
+
         //println(e1.x);
         //println(e1.y);
 
@@ -58,16 +61,17 @@ class Room {
         //println(e3.x);
         //println(e3.y);
       } else if (enemySpawn == 4) {
-        Enemy e1= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
+
+        Enemy e1= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e1);
 
-        Enemy e2= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
+        Enemy e2= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e2);
 
-        Enemy e3= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
+        Enemy e3= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e3);
 
-        Enemy e4= new Enemy(xPos + random(w, w - 90), yPos + random(h, h- 95));
+        Enemy e4= new Enemy(xPos + random(0, w - 90), yPos + random(0, h- 95));
         scenePlay.enemies.add(e4);
         //println(e1.x);
         //println(e1.y);
@@ -135,11 +139,18 @@ class Room {
     // COLLISION WITH TOP DOOR
     if (scenePlay.player.checkCollision(d1)) {
       if (!topWall) {
-        numRooms++;
         topWall = true;
-        Room r = new Room(x, y - h + platformHeight/2 - 50 );
-        scenePlay.rooms.add(r);
-        r.bottomWall = true;
+
+        if (numRooms < 2) {
+          Room r = new Room(x, y - h + platformHeight/2 - 50 );
+          scenePlay.rooms.add(r);
+          r.bottomWall = true;
+          numRooms ++;
+        } else if (numRooms > 2) {
+          HallWayUD h = new HallWayUD(x, y);
+          scenePlay.hallwaysud.add(h);
+          h.bottomWall = true;
+        }
       }
     }
     // COLLISION WITH RIGHT DOOR
@@ -206,9 +217,6 @@ class HallWayRL {
   float platformHeight = h - h/2 - gapSize/2;
 
 
-  int numRooms = 0;
-
-
 
   HallWayRL(float xPos, float yPos) {
     enemySpawn = 2;//round(random(2,4));
@@ -216,7 +224,7 @@ class HallWayRL {
     Floor f = new Floor(xPos - 5, yPos+1, w - 90, h - 95);
     scenePlay.floors.add(f);
 
-   
+
 
     x = xPos;
     y = yPos;
@@ -250,7 +258,6 @@ class HallWayRL {
     Wall w5 = new Wall(x + platformWidth/2, y + platformHeight*2 + gapSize/2, platformWidth, wallThickness);
     scenePlay.walls.add(w5);
     w5.identifier = 4;
-
   }
 
   void update() {
@@ -260,7 +267,7 @@ class HallWayRL {
     // COLLISION WITH RIGHT DOOR
     if (scenePlay.player.checkCollision(d2)) {
       if (!rightWall) {
-        numRooms++;
+        //numRooms++;
         rightWall = true;
         Room r = new Room(x + w/2 + platformWidth + 5, y);
         scenePlay.rooms.add(r);
@@ -270,17 +277,13 @@ class HallWayRL {
     // COLLISION WITH LEFT DOOR
     if (scenePlay.player.checkCollision(d4)) {
       if (!leftWall) {
-        numRooms++;
+        //
         leftWall = true;
         Room r = new Room(x - platformWidth - w/2 - 5, y);
         scenePlay.rooms.add(r);
         r.rightWall = true;
       }
     }
-
-
-
-
   }
 
   Room GetRoomAtLocation(float x, float y) {
@@ -320,7 +323,7 @@ class HallWayUD {
     Floor f = new Floor(xPos - 5, yPos+1, w - 90, h - 95);
     scenePlay.floors.add(f);
 
- 
+
 
     x = xPos;
     y = yPos;
@@ -339,7 +342,7 @@ class HallWayUD {
     Wall w3 = new Wall(w1.x + w/2 + w1.w/2, y + platformHeight/2, wallThickness, platformHeight);
     scenePlay.walls.add(w3);
     w3.identifier = 2;
-   
+
     // LEFT WALLS
     Wall w7 = new Wall(w1.x - platformWidth/2, y + platformHeight/2, wallThickness, platformHeight);
     scenePlay.walls.add(w7);
