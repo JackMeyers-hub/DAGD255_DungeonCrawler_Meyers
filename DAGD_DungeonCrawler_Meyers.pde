@@ -11,7 +11,7 @@ boolean leftPressed, rightPressed, pLeftPressed, pRightPressed;
 void setup() {
   fullScreen();
   //size(1920, 1080);
-  switchToPlay();
+  switchToTitle();
 }
 
 

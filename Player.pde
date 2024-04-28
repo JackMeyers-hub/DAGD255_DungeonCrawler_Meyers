@@ -2,8 +2,8 @@ class Player extends AABB {
 
   int level = 1;
   boolean isBursting;
-  boolean hasShotgun = true;
-  boolean hasRifle = true;
+  boolean hasShotgun = false;
+  boolean hasRifle = false;
 
   float burstCD = 0;
   float numBursts = 3;
@@ -50,11 +50,11 @@ class Player extends AABB {
       velocity.y =  250;
     }
 
-    if (rightPressed && !pRightPressed) {
-      isBursting = true;
-      spawnRocketBurst();
-      //println("fired");
-    }
+    //if (rightPressed && !pRightPressed) {
+    //  isBursting = true;
+    //  spawnRocketBurst();
+    //  //println("fired");
+    //}
 
     switch(invItem) {
     case PISTOL:
