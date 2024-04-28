@@ -22,15 +22,17 @@ class ScenePlay {
   ArrayList<Enemy> enemies = new ArrayList();
   ArrayList<Wall> walls = new ArrayList();
   ArrayList<Room> rooms = new ArrayList();
-  ArrayList<HallWayUD> hallwaysud = new ArrayList();
-  ArrayList<HallWayRL> hallwaysrl = new ArrayList();
+  ArrayList<Chest> chests = new ArrayList();
+  ArrayList<HealthPack> healthpacks = new ArrayList();
+  //ArrayList<HallWayUD> hallwaysud = new ArrayList();
+  //ArrayList<HallWayRL> hallwaysrl = new ArrayList();
   ArrayList<Door> doors = new ArrayList();
   ArrayList<Particle> particles = new ArrayList();
   ArrayList<Floor> floors = new ArrayList();
-  ArrayList<Rocket> rockets = new ArrayList();
+
   ArrayList<Bullet> bullets = new ArrayList();
   ArrayList<Bullet> ebullets = new ArrayList();
-  ArrayList<Rocket> enemyrockets = new ArrayList();
+
 
 
   ScenePlay() {
@@ -163,6 +165,28 @@ class ScenePlay {
       if (b.lifeTime <= 0) bullets.remove(b);
     }
 
+
+
+    for (int i = 0; i < chests.size(); i++) {
+      Chest c = chests.get(i);
+      c.update();
+      if (c.checkCollision(player)) {
+        player.applyFix(player.findOverlapFix(c));
+      }
+    }
+
+    for (int i = 0; i < healthpacks.size(); i++) {
+      HealthPack h = healthpacks.get(i);
+      h.update();
+
+      if (h.checkCollision(player)) {
+        healthpacks.remove(i);
+        if (player.playerHealth <= 85) {
+          player.playerHealth += 15;
+        }
+      }
+    }
+
     for (int i = 0; i < ebullets.size(); i++) {
       Bullet b = ebullets.get(i);
       b.update();
@@ -171,6 +195,8 @@ class ScenePlay {
         scenePlay.player.playerHealth -= 1.5;
         //player will take damage
       }
+
+
 
       for (int j = 0; j < walls.size(); j++) {
 
@@ -195,15 +221,6 @@ class ScenePlay {
 
 
       if (b.lifeTime <= 0) ebullets.remove(b);
-    }
-
-    for (int i = 0; i < rockets.size(); i++) {
-      Rocket r = rockets.get(i);
-      r.update();
-
-      if (r.lifeTime <= 0) {
-        rockets.remove(r);
-      }
     }
 
     if (shotgun != null) {
@@ -257,10 +274,6 @@ class ScenePlay {
       d.draw();
     }
 
-    for (int i = 0; i < rockets.size(); i++) {
-      Rocket r = rockets.get(i);
-      r.draw();
-    }
 
 
 
@@ -272,6 +285,16 @@ class ScenePlay {
     for (int i = 0; i < particles.size(); i++) {
       Particle p = particles.get(i);
       p.draw();
+    }
+
+    for (int i = 0; i < chests.size(); i++) {
+      Chest c = chests.get(i);
+      c.draw();
+    }
+
+    for (int i = 0; i < healthpacks.size(); i++) {
+      HealthPack h = healthpacks.get(i);
+      h.draw();
     }
 
 

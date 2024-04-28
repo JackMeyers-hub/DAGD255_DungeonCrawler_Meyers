@@ -158,19 +158,8 @@ class Enemy extends AABB {
   void draw() {
     pushMatrix();
     fill(0);
-    stroke(3);
-    //switch(currentState) {
-    //case PATROL_STATE:
-    //  fill(#FFFFFF);
-    //  break;
-    //case CHASE_STATE:
-    //  fill(#FFFFFF);
-    //  break;
-    //case ATTACK_STATE:
-    //  fill(#FFFFFF);
-    //  break;
-    //}
-    //rotate(playerAngle);
+    noStroke();
+
     rect(x-halfW, y-halfH, w, h);
     popMatrix();
   }

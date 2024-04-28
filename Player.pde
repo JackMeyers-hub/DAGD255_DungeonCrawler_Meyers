@@ -143,29 +143,7 @@ class Player extends AABB {
     popMatrix();
   }
 
-  void spawnRocketBurst() {
-    if (isBursting) {
 
-      if (burstCD <= 0) {
-        numBursts--;
-        if (numBursts > 0) {
-          //spawn
-
-          println("is Spawing");
-          for (int i = 00; i < 3; i++) {
-            Rocket r = new Rocket(x, y, angle);
-            scenePlay.rockets.add(r);
-            println("Rocket Spawned");
-          }
-          burstCD = 0.35;
-        } else {
-          numBursts = 3;
-          isBursting = false;
-          println("Rocket Reset");
-        }
-      }
-    }
-  }
 
   @Override void applyFix(PVector fix) {
     x += fix.x;
