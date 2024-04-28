@@ -1,9 +1,12 @@
 // this class defines a "Title" scene
 class SceneTitle {
+  float swapCD = .5;
   SceneTitle() {
+    swapCD = .5;
   }
   void update() {
-    if (rightPressed && !pRightPressed) {
+    swapCD -= dt;
+    if (leftPressed && !pLeftPressed && swapCD <= 0) {
       switchToPlay();
     }
   }
@@ -12,8 +15,8 @@ class SceneTitle {
     fill(255);
     textSize(20);
     textAlign(CENTER, CENTER);
-    text("The Neat Game", width/2, height/2 - 30);
+    text("Explore the Void", width/2, height/2 - 30);
     textSize(12);
-    text("Right Click to play!", width/2, height/2);
+    text("Left Click to play!", width/2, height/2);
   }
 }

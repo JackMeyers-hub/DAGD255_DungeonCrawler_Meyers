@@ -73,15 +73,3 @@ void switchToGameOver() {
   scenePlay = null;
   sceneTitle = null;
 }
-
-//void mousePressed() {
-//  if (mouseButton == LEFT) {
-//    Mouse.handleKeyDown(Mouse.LEFT);
-//  }
-//}
-
-//void mouseReleased() {
-//  if (mouseButton == LEFT) {
-//    Mouse.handleKeyUp(Mouse.LEFT);
-//  }
-//}

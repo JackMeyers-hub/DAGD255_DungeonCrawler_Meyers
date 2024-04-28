@@ -57,7 +57,7 @@ class HealthPack extends AABB {
 
 
     for (int i = 0; i < scenePlay.healthpacks.size(); i++) {
-      //HealthPack h = scenePlay.healthpacks.get(i);
+
 
       if (scenePlay.healthpacks.get(i).isDead) scenePlay.healthpacks.remove(i);
     }

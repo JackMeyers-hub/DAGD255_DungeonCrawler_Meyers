@@ -4,7 +4,7 @@ class SceneGameOver {
   SceneGameOver() {
   }
   void update() {
-    if (Mouse.onDown(Mouse.LEFT)) {
+    if (leftPressed && !pLeftPressed) {
       switchToTitle();
     }
   }

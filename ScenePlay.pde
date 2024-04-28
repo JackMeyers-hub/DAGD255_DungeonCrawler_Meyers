@@ -24,12 +24,9 @@ class ScenePlay {
   ArrayList<Room> rooms = new ArrayList();
   ArrayList<Chest> chests = new ArrayList();
   ArrayList<HealthPack> healthpacks = new ArrayList();
-  //ArrayList<HallWayUD> hallwaysud = new ArrayList();
-  //ArrayList<HallWayRL> hallwaysrl = new ArrayList();
   ArrayList<Door> doors = new ArrayList();
   ArrayList<Particle> particles = new ArrayList();
   ArrayList<Floor> floors = new ArrayList();
-
   ArrayList<Bullet> bullets = new ArrayList();
   ArrayList<Bullet> ebullets = new ArrayList();
 
@@ -335,8 +332,5 @@ class ScenePlay {
     if (crosshair != null) {
       crosshair.draw();
     }
-
-    text("PLAYER X:" + round(player.x), 100, 50);
-    text("PLAYER Y:" + round(player.y), 100, 70);
   }
 }

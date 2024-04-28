@@ -29,7 +29,7 @@ class Player extends AABB {
     x = xPos;
     y = yPos;
     setSize(40, 40);
-    playerHealth = 100;
+    playerHealth = 10;
   }
 
   void update() {
@@ -50,11 +50,7 @@ class Player extends AABB {
       velocity.y =  250;
     }
 
-    //if (rightPressed && !pRightPressed) {
-    //  isBursting = true;
-    //  spawnRocketBurst();
-    //  //println("fired");
-    //}
+
 
     switch(invItem) {
     case PISTOL:
