@@ -29,7 +29,7 @@ class Player extends AABB {
     x = xPos;
     y = yPos;
     setSize(40, 40);
-    playerHealth = 10;
+    playerHealth = 100;
   }
 
   void update() {
